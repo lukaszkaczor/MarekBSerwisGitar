@@ -1,0 +1,38 @@
+﻿@model SerwisGitar.ViewModels.Galleries.AddImageViewModel
+
+<h1><a href="@Url.Action("Edit", "Galleries",new { id = Model.Gallery.GalleryId})"><i class="fas fa-arrow-left"></i></a>Dodaj zdjęcie do galerii @Model.Gallery.Name</h1>
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("AddImage", "Galleries", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.LabelFor(d => d.Image.Name, "Nazwa", new { @class = "control-label" })
+                @Html.TextBoxFor(d => d.Image.Name, new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(d => d.Image.Url, new { @class = "control-label" })
+                @Html.TextBoxFor(d => d.Image.Url, new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Image.Url, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(d => d.ImageGallery.Order, "Numer na liście", new { @class = "control-label" })
+                @Html.TextBoxFor(d => d.ImageGallery.Order, new { @type = "number", max = Model.ImageGallery.Order, min = 1, @class = "form-control" })
+            </div>
+
+
+            @Html.HiddenFor(d => d.Gallery.GalleryId)
+            @Html.HiddenFor(d => d.ImageGallery.ImageId)
+            <button type="submit" class="btn btn-primary">Wyślij</button>
+        }
+    </div>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+    <div class="col-lg-12">
+        @*<a href="@Url.Action("ImageList", "Galleries", new { id = Model.Gallery.Id })">Albo wybierz spośród obrazów dostępnych w bazie</a>*@
+    </div>
+
+</div>

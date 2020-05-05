@@ -1,0 +1,33 @@
+﻿@model List<SerwisGitar.Models.DbModels.Image>
+
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Galeria</h1>
+        <p class="lead">lorem impsum ratunku nie wiem co tu wpisac .</p>
+    </div>
+</div>
+
+<h2>Serwis</h2>
+<div class="gallery">
+    @foreach (var image in Model)
+    {
+        <img src="@image.Url" alt="@image.Name" class="img-thumbnail">
+    }
+</div>
+
+<h2>Nasze instrumenty</h2>
+<div class="gallery">
+    @foreach (var image in Model)
+    {
+        <img src="@image.Url" alt="@image.Name" class="img-thumbnail">
+    }
+</div>
+
+
+<style>
+    .gallery {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+</style>

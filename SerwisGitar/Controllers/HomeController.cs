@@ -28,5 +28,14 @@ namespace SerwisGitar.Controllers
 
             return View();
         }
+
+        public ActionResult Gallery()
+        {
+            var model = _context.Images.ToList();
+
+            return View(model);
+        }
+
+
     }
 }

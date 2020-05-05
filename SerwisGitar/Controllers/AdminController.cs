@@ -20,7 +20,7 @@ namespace SerwisGitar.Controllers
             return View();
         }
 
-        public ActionResult ContentEditor()
+        public ActionResult ContentEditor(Page? page)
         {
             var pages = Enum.GetNames(typeof(Page))
                 .Where(d => d != Page.Temporary.ToString())
@@ -31,7 +31,13 @@ namespace SerwisGitar.Controllers
                 Pages = PageToEditList.PagesList
             };
 
-            return View(model);
+            if (page != Page.Temporary)
+                model.ContentEditor = _context.ContentEditor
+                    .Where(d => d.IsDraftVersion == false)
+                    .FirstOrDefault(d => d.Page == page);
+
+
+                return View(model);
         }
 
         public ActionResult SaveContent(ContentEditorViewModel model)

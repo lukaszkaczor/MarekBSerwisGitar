@@ -1,0 +1,116 @@
+﻿@model SerwisGitar.ViewModels.Galleries.GalleryViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+
+<h2>Edytuj</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Galerię "@Model.Gallery.Name"</h4>
+        @Html.ActionLink("Dodaj zdjęcie do galerii", "AddImage", new { id = Model.Gallery.GalleryId })
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Gallery.GalleryId, new { id = "galleryId" })
+
+        <div style="display: flex; flex-direction: row; ">
+            @Html.EditorFor(model => model.Gallery.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Gallery.Name, "", new { @class = "text-danger" })
+            <input type="submit" value="Zapisz" class="btn btn-default" style="margin-left: 10px" />
+        </div>
+    </div>
+}
+<hr />
+
+
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            Nazwa
+        </th>
+        <th>
+            Podgląd
+        </th>
+        @*<th>
+                Url
+            </th>*@
+        <th>Edytuj</th>
+    </tr>
+
+    @for (var i = 0; i < Model.Images.Count; i++)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Images[i].Name)
+            </td>
+            <td style="display: flex">
+                <img src="@Model.Images[i].Url" style="width:150px" />
+            </td>
+            @*<td>
+                    @Html.DisplayFor(d => d.Images[i].Url)
+                </td>*@
+            <td>
+                @Html.AntiForgeryToken()
+                <button class="btnSubstract btn btn-default">-</button>
+                @Html.TextBoxFor(d => Model.ImageGalleries[i].Order, new { style = "padding: 5px; border: 1px solid rgba(0,0,0,0.2); border-radius: 5px;", @class = "imageToSend", @type = "number", min = 1, max = Model.ImageGalleries.Max(d => d.Order) })
+                <button class="btnAdd btn btn-default">+</button>
+                <button class="btn btn-danger btnDelete">X</button>
+
+
+                @Html.Hidden("Order", Model.ImageGalleries[i].Order)
+                @Html.Hidden("GalleryId", Model.ImageGalleries[i].GalleryId)
+                @Html.Hidden("ImageId", Model.ImageGalleries[i].ImageId, new { @class = "imgId" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="../../Content/galleries.js"></script>
+}
+
+@*<h2>Edit</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Gallery</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.GalleryId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
