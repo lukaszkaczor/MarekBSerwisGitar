@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SerwisGitar.Models;
+using System.Data.Entity;
 
 namespace SerwisGitar.Controllers
 {
@@ -31,9 +32,11 @@ namespace SerwisGitar.Controllers
 
         public ActionResult Gallery()
         {
-            var model = _context.Images.ToList();
+            var mainGallery = _context.MainGallery
+                .Include(d=>d.ServiceGallery.ImageGalleries)
+                .Include(d=>d.ServiceGallery.ImageGalleries).FirstOrDefault();
 
-            return View(model);
+            return View(mainGallery);
         }
 
 

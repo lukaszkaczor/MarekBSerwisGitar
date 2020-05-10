@@ -1,0 +1,28 @@
+﻿@model SerwisGitar.ViewModels.Admin.EditMainGalleryViewModel
+
+@{
+    ViewBag.Title = "Edytowanie galerii głównej";
+}
+
+<h2>Zestawy zdjęć do galerii głównej</h2>
+@using (Html.BeginForm("EditMainGallery", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(d => d.Gallery.ServiceGalleryId, "Serwis")
+        <div style="display: flex">
+            @Html.DropDownListFor(d=>d.Gallery.ServiceGalleryId, new SelectList(Model.Galleries, "GalleryId", "Name"), "--", new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(d => d.Gallery.ServiceGalleryId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(d => d.Gallery.OurInstrumentsId, "Nasze instrumenty")
+        <div style="display: flex">
+            @Html.DropDownListFor(d=>d.Gallery.OurInstrumentsId, new SelectList(Model.Galleries, "GalleryId", "Name"), "--", new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(d => d.Gallery.OurInstrumentsId)
+    </div>
+
+    <button class="btn btn-success">Zapisz</button>
+}

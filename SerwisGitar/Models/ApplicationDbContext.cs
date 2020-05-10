@@ -10,6 +10,7 @@ namespace SerwisGitar.Models
         public DbSet<Image> Images { get; set; }
         public DbSet<Gallery> Galleries { get; set; }
         public DbSet<ImageGallery> ImageGalleries { get; set; }
+        public DbSet<MainGallery> MainGallery { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

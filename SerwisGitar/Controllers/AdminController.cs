@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SerwisGitar.Models;
 using SerwisGitar.Models.AppModels;
 using SerwisGitar.Models.DbModels;
+using SerwisGitar.ViewModels.Admin;
 using SerwisGitar.ViewModels.ContentEditor;
 
 namespace SerwisGitar.Controllers
@@ -73,6 +74,48 @@ namespace SerwisGitar.Controllers
             _context.SaveChanges();
 
             return View("Index");
+        }
+
+        public ActionResult EditMainGallery()
+        {
+            var mainGallery = _context.MainGallery.FirstOrDefault();
+            var galleries = _context.Galleries.ToList();
+
+            if (mainGallery != null)
+            {
+                galleries = galleries.OrderBy(d=>d.Name).ToList();
+            }
+
+            var model = new EditMainGalleryViewModel()
+            {
+                Gallery = mainGallery,
+                Galleries = galleries
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditMainGallery(EditMainGalleryViewModel model)
+        {
+            if (model.Gallery is null) throw new NullReferenceException();
+            
+            var mainGallery = _context.MainGallery.FirstOrDefault();
+            
+            if (mainGallery is null)
+            {
+                _context.MainGallery.Add(model.Gallery);
+            }
+            else
+            {
+                mainGallery.OurInstrumentsId = model.Gallery.OurInstrumentsId;
+                mainGallery.ServiceGalleryId = model.Gallery.ServiceGalleryId;
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Gallery", "Home");
         }
     }
 }

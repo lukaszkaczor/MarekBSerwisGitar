@@ -1,5 +1,8 @@
-﻿@model List<SerwisGitar.Models.DbModels.Image>
+﻿@model SerwisGitar.Models.DbModels.MainGallery
 
+@{
+    ViewBag.Title = "Galeria";
+}
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
@@ -7,27 +10,31 @@
         <p class="lead">lorem impsum ratunku nie wiem co tu wpisac .</p>
     </div>
 </div>
-
-<h2>Serwis</h2>
-<div class="gallery">
-    @foreach (var image in Model)
+@if (Model.ServiceGallery != null)
+{
+    <h2>Serwis</h2>
+    <div class="gallery">
+        @foreach (var imageGallery in Model.ServiceGallery.ImageGalleries)
+        {
+            <img src="@imageGallery.Image.Url" alt="@imageGallery.Image.Name" class="img-thumbnail">
+        }
+    </div>
+}
+    @if (Model.OurInstruments != null)
     {
-        <img src="@image.Url" alt="@image.Name" class="img-thumbnail">
+        <h2 style="margin-top: 50px;">Nasze instrumenty</h2>
+        <div class="gallery">
+            @foreach (var imageGallery in Model.OurInstruments.ImageGalleries)
+            {
+                <img src="@imageGallery.Image.Url" alt="@imageGallery.Image.Name" class="img-thumbnail">
+            }
+        </div>
     }
-</div>
 
-<h2>Nasze instrumenty</h2>
-<div class="gallery">
-    @foreach (var image in Model)
-    {
-        <img src="@image.Url" alt="@image.Name" class="img-thumbnail">
-    }
-</div>
-
-
-<style>
-    .gallery {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-</style>
+    <style>
+        .gallery {
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+    </style>

@@ -175,6 +175,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CustomInstrumentsController.cs" />
     <Compile Include="Controllers\GalleriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
@@ -198,6 +199,10 @@
     <Compile Include="Migrations\202005051555354_AddImagesAndGalleriesTables.designer.cs">
       <DependentUpon>202005051555354_AddImagesAndGalleriesTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005101613506_AddMainGalleryTable.cs" />
+    <Compile Include="Migrations\202005101613506_AddMainGalleryTable.designer.cs">
+      <DependentUpon>202005101613506_AddMainGalleryTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -207,15 +212,18 @@
     <Compile Include="Models\DbModels\Gallery.cs" />
     <Compile Include="Models\DbModels\Image.cs" />
     <Compile Include="Models\DbModels\ImageGallery.cs" />
+    <Compile Include="Models\DbModels\MainGallery.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Admin\EditMainGalleryViewModel.cs" />
     <Compile Include="ViewModels\ContentEditor\ContentEditorViewModel.cs" />
     <Compile Include="ViewModels\Galleries\AddImageViewModel.cs" />
     <Compile Include="ViewModels\Galleries\GalleryViewModel.cs" />
+    <Compile Include="ViewModels\Home\HomeGalleryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -816,6 +824,8 @@
     <Content Include="Views\Images\Edit.cshtml" />
     <Content Include="Views\Images\Index.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
+    <Content Include="Views\Admin\EditMainGallery.cshtml" />
+    <Content Include="Views\CustomInstruments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -843,6 +853,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005051555354_AddImagesAndGalleriesTables.resx">
       <DependentUpon>202005051555354_AddImagesAndGalleriesTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005101613506_AddMainGalleryTable.resx">
+      <DependentUpon>202005101613506_AddMainGalleryTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
