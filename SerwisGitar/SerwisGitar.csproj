@@ -239,6 +239,10 @@
     <Compile Include="Migrations\202005122108053_PopulateInstrumentServicesTable.designer.cs">
       <DependentUpon>202005122108053_PopulateInstrumentServicesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005122126107_PopulateImagesAndGalleriesTables.cs" />
+    <Compile Include="Migrations\202005122126107_PopulateImagesAndGalleriesTables.designer.cs">
+      <DependentUpon>202005122126107_PopulateImagesAndGalleriesTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -978,6 +982,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005122108053_PopulateInstrumentServicesTable.resx">
       <DependentUpon>202005122108053_PopulateInstrumentServicesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005122126107_PopulateImagesAndGalleriesTables.resx">
+      <DependentUpon>202005122126107_PopulateImagesAndGalleriesTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
