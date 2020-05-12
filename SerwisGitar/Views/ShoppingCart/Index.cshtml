@@ -1,0 +1,58 @@
+﻿@using System.Security.Principal
+@model List<SerwisGitar.Models.DbModels.ShoppingCart>
+
+@{
+    ViewBag.Title = "Koszyk";
+    decimal total = 0;
+}
+
+
+<table class="table table-striped">
+    <tr>
+        <th style="width: 50%">
+            Nazwa
+        </th>
+        <th>
+            Cena 
+        </th>
+        <th>Usuń</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="width: 50%">
+                @item.ServiceDescription
+                @item.Service.Name - @item.Instrument.Name
+            </td>
+            <td>
+                @item.Service.Price.ToString("F") zł
+
+                @{
+                    total += item.Service.Price;
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("DeleteFromCart", "ShoppingCart", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("itemId", item.ServiceId)
+                    <button type="submit" class="btn btn-danger">x</button>
+                }
+            </td>
+        </tr>
+    }
+
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td style=""><strong>Razem:</strong> @total.ToString("F") zł</td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td><a href="@Url.Action("Index", "Orders")" class="btn btn-primary">Złóż zamówienie</a> <-- nie działa</td>
+    </tr>
+</table>

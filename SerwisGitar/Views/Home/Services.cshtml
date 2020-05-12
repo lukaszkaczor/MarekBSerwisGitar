@@ -1,0 +1,37 @@
+﻿@model SerwisGitar.ViewModels.Home.HomeServicesViewModel
+
+
+    <button class="btn btn-danger">Usługi są wczytywane na podstawie wybranego produktu. Można je zmienic w panelu admina. Wygląd tej strony zostanie zmieniony</button>
+
+<h2>Zamawianie usługi</h2>
+<hr/>
+
+<h4>1. Wybierz rodzaj instrumentu</h4>
+<div class="form-group">
+    @Html.LabelFor(model => model.Instrument.InstrumentId, "Rodzaj instrumentu", htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.DropDownListFor(d => d.Instrument.InstrumentId, new SelectList(Model.Instruments, "InstrumentId", "Name"), "Wybierz instrument", htmlAttributes: new { @class = "form-control" })
+        @*@Html.DropDownList("ServiceTypeId", new SelectList(Model.Instruments, "InstrumentId", "Name"), "Wybierz instrument", htmlAttributes: new {@class = "form-control"})*@
+        @Html.ValidationMessageFor(model => model.Instrument.InstrumentId, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+@using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post, new { @id = "form" }))
+{
+}
+
+
+@section Scripts{
+    <script src="~/Content/script.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('input').change(function() {
+                alert();
+            });
+        });
+
+    </script>
+}
+

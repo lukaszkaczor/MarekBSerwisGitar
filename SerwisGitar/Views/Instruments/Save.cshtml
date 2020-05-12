@@ -1,0 +1,61 @@
+﻿@model SerwisGitar.ViewModels.Instruments.CreateInstrumentViewModel
+
+@{
+    ViewBag.Title = "Create";
+    var flag = false;
+}
+
+<h2>Zarządzaj</h2>
+
+@using (Html.BeginForm("Save", "Instruments", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(d => d.Instrument.InstrumentId)
+    <div class="form-horizontal">
+        <h4>Instrument</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Instrument.Name, "Nazwa", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Instrument.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Instrument.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        @for (int i = 0; i < Model.Services.Count; i++)
+        {
+            if (flag == false)
+            {
+                <h2 style="margin-top: 3rem">@Model.Services[i].ServiceType.Name</h2>
+                flag = true;
+            }
+
+            <div class="form-check" style="margin-left: 2rem">
+                @Html.CheckBoxFor(d => Model.Services[i].IsChecked, new { @class = "form-check-input" }))
+                @Html.HiddenFor(d => Model.Services[i].ServiceId)
+                @Html.LabelFor(d => Model.Services[i].IsChecked, Model.Services[i].Name, new { @class = "form-check-label" })
+            </div>
+
+            if (i < Model.Services.Count - 1)
+            {
+                if (Model.Services[i].ServiceType.Name != Model.Services[i + 1].ServiceType.Name)
+                {
+                    flag = false;
+                }
+            }
+        }
+    </div>
+    <div class="form-group" style="margin: 30px 0;">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz" class="btn btn-success" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Wróć", "Index")
+</div>
+
+

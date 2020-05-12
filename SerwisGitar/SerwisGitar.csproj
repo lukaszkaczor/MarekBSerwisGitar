@@ -179,7 +179,11 @@
     <Compile Include="Controllers\GalleriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
+    <Compile Include="Controllers\InstrumentsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\ServiceTypesController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,16 +207,54 @@
     <Compile Include="Migrations\202005101613506_AddMainGalleryTable.designer.cs">
       <DependentUpon>202005101613506_AddMainGalleryTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005121122513_InstrumentAndServicesTables.cs" />
+    <Compile Include="Migrations\202005121122513_InstrumentAndServicesTables.designer.cs">
+      <DependentUpon>202005121122513_InstrumentAndServicesTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005121137039_AddPriceColumnToServicesTable.cs" />
+    <Compile Include="Migrations\202005121137039_AddPriceColumnToServicesTable.designer.cs">
+      <DependentUpon>202005121137039_AddPriceColumnToServicesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005122005454_AddShoppingCart.cs" />
+    <Compile Include="Migrations\202005122005454_AddShoppingCart.designer.cs">
+      <DependentUpon>202005122005454_AddShoppingCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005122013338_AddInstrumentColumnToShoppingCartTable.cs" />
+    <Compile Include="Migrations\202005122013338_AddInstrumentColumnToShoppingCartTable.designer.cs">
+      <DependentUpon>202005122013338_AddInstrumentColumnToShoppingCartTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005122039322_PopulateServiceTypesTable.cs" />
+    <Compile Include="Migrations\202005122039322_PopulateServiceTypesTable.designer.cs">
+      <DependentUpon>202005122039322_PopulateServiceTypesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005122106184_PopulateInstrumentsTable.cs" />
+    <Compile Include="Migrations\202005122106184_PopulateInstrumentsTable.designer.cs">
+      <DependentUpon>202005122106184_PopulateInstrumentsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005122107057_PopulateServicesTable.cs" />
+    <Compile Include="Migrations\202005122107057_PopulateServicesTable.designer.cs">
+      <DependentUpon>202005122107057_PopulateServicesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005122108053_PopulateInstrumentServicesTable.cs" />
+    <Compile Include="Migrations\202005122108053_PopulateInstrumentServicesTable.designer.cs">
+      <DependentUpon>202005122108053_PopulateInstrumentServicesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\AppModels\InstrumentWithService.cs" />
     <Compile Include="Models\AppModels\PageDescription.cs" />
     <Compile Include="Models\AppModels\PageToEditList.cs" />
     <Compile Include="Models\DbModels\ContentEditor.cs" />
     <Compile Include="Models\DbModels\Gallery.cs" />
     <Compile Include="Models\DbModels\Image.cs" />
     <Compile Include="Models\DbModels\ImageGallery.cs" />
+    <Compile Include="Models\DbModels\Instrument.cs" />
+    <Compile Include="Models\DbModels\InstrumentServices.cs" />
     <Compile Include="Models\DbModels\MainGallery.cs" />
+    <Compile Include="Models\DbModels\Service.cs" />
+    <Compile Include="Models\DbModels\ServiceType.cs" />
+    <Compile Include="Models\DbModels\ShoppingCart.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -224,6 +266,9 @@
     <Compile Include="ViewModels\Galleries\AddImageViewModel.cs" />
     <Compile Include="ViewModels\Galleries\GalleryViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeGalleryViewModel.cs" />
+    <Compile Include="ViewModels\Home\HomeServicesViewModel.cs" />
+    <Compile Include="ViewModels\Instruments\CreateInstrumentViewModel.cs" />
+    <Compile Include="ViewModels\ShoppingCart\ShoppingCartViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -642,6 +687,43 @@
     <Content Include="Content\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Content\ckeditor\styles.js" />
     <Content Include="Content\ckeditor\vendor\promise.js" />
+    <Content Include="Content\script.js" />
+    <Content Include="Content\temp\glowki\fu 1.png" />
+    <Content Include="Content\temp\glowki\fu2.png" />
+    <Content Include="Content\temp\glowki\fu3.png" />
+    <Content Include="Content\temp\glowki\fu4.png" />
+    <Content Include="Content\temp\glowki\gp5.png" />
+    <Content Include="Content\temp\glowki\gp6.png" />
+    <Content Include="Content\temp\Zdjecia\deski persolizowywowane.jpg" />
+    <Content Include="Content\temp\Zdjecia\główki personalizowane.png" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC01634.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC01636.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC01644.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC01646.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC01649.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC02279.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC02280.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC02281.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC02283.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC02284.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC02286.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\DSC02288.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\_DSC2618.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\_DSC2621.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\_DSC2623.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\_DSC2626.JPG" />
+    <Content Include="Content\temp\Zdjecia\personalizowywane\_DSC2629.JPG" />
+    <Content Include="Content\temp\Zdjecia\Serwis\20200507_152438.jpg" />
+    <Content Include="Content\temp\Zdjecia\Serwis\20200507_152454.jpg" />
+    <Content Include="Content\temp\Zdjecia\Serwis\20200507_152601.jpg" />
+    <Content Include="Content\temp\Zdjecia\Serwis\20200507_152613.jpg" />
+    <Content Include="Content\temp\Zdjecia\Serwis\20200507_152625.jpg" />
+    <Content Include="Content\temp\Zdjecia\Serwis\20200507_152703.jpg" />
+    <Content Include="Content\temp\Zdjecia\Serwis\20200507_152710.jpg" />
+    <Content Include="Content\temp\Zdjecia\Serwis\20200507_152751.jpg" />
+    <Content Include="Content\temp\Zdjecia\Serwis\29550471_1828118150552845_1621209825_n.png" />
+    <Content Include="Content\temp\Zdjecia\Serwis\DSC01546.JPG" />
+    <Content Include="Content\temp\Zdjecia\Serwis\uslugagryf1.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -683,6 +765,7 @@
     <Content Include="Content\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Content\ckeditor\skins\moono-lisa\readme.md" />
+    <Content Include="Content\temp\Zdjecia\WOBSerwis.docx" />
     <None Include="Scripts\jquery-3.5.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.0.js" />
     <Content Include="Scripts\jquery-3.5.0.min.js" />
@@ -826,6 +909,21 @@
     <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\Admin\EditMainGallery.cshtml" />
     <Content Include="Views\CustomInstruments\Index.cshtml" />
+    <Content Include="Views\ServiceTypes\Create.cshtml" />
+    <Content Include="Views\ServiceTypes\Delete.cshtml" />
+    <Content Include="Views\ServiceTypes\Details.cshtml" />
+    <Content Include="Views\ServiceTypes\Edit.cshtml" />
+    <Content Include="Views\ServiceTypes\Index.cshtml" />
+    <Content Include="Views\Instruments\Delete.cshtml" />
+    <Content Include="Views\Instruments\Index.cshtml" />
+    <Content Include="Views\Services\Create.cshtml" />
+    <Content Include="Views\Services\Delete.cshtml" />
+    <Content Include="Views\Services\Details.cshtml" />
+    <Content Include="Views\Services\Edit.cshtml" />
+    <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Instruments\Save.cshtml" />
+    <Content Include="Views\Home\Services.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -856,6 +954,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005101613506_AddMainGalleryTable.resx">
       <DependentUpon>202005101613506_AddMainGalleryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005121122513_InstrumentAndServicesTables.resx">
+      <DependentUpon>202005121122513_InstrumentAndServicesTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005121137039_AddPriceColumnToServicesTable.resx">
+      <DependentUpon>202005121137039_AddPriceColumnToServicesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005122005454_AddShoppingCart.resx">
+      <DependentUpon>202005122005454_AddShoppingCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005122013338_AddInstrumentColumnToShoppingCartTable.resx">
+      <DependentUpon>202005122013338_AddInstrumentColumnToShoppingCartTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005122039322_PopulateServiceTypesTable.resx">
+      <DependentUpon>202005122039322_PopulateServiceTypesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005122106184_PopulateInstrumentsTable.resx">
+      <DependentUpon>202005122106184_PopulateInstrumentsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005122107057_PopulateServicesTable.resx">
+      <DependentUpon>202005122107057_PopulateServicesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005122108053_PopulateInstrumentServicesTable.resx">
+      <DependentUpon>202005122108053_PopulateInstrumentServicesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

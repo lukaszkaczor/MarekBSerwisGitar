@@ -3,67 +3,64 @@
     ViewBag.Title = "Personalizowanie gitary";
 }
 
-
-<form class="accordion" id="accordionExample">
-    <div class="card">
-        <div class="card-header" id="headingOne">
-            <h2 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Rodzaj główki
-                </button>
-            </h2>
+<form>
+<h2 class="mainCaption">Kształt główki</h2>
+<div class="grid-body">
+    <label class="card">
+        <img class="card-img-top" src="~/Content/temp/glowki/fu 1.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">nazwa przedmiotu</h5>
+            <p class="card-text">cena/krótki opis</p>
         </div>
-
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-            <div class="card-body">
-
-                <label for="1" class="card2 bagno" style="width: 18rem;">
-                    <img src="http://placehold.it/40x60/0bf/fff&text=A">
-                    <input id="1" type="radio" name="test" value="1" checked>
-
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </label>
-                
-                <label for="2" class="card2" style="width: 18rem;">
-                    <img src="http://placehold.it/40x60/0bf/fff&text=A">
-                    <input id="2" type="radio" name="test" value="2">
-
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </label>
-                
-                <label for="3" class="card2" style="width: 18rem;">
-                    <img src="http://placehold.it/40x60/0bf/fff&text=A">
-                    <input id="3" type="radio" name="test" value="3">
-
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </label>
-            </div>
+    </label>   
+    <label class="card">
+        <img class="card-img-top" src="~/Content/temp/glowki/fu2.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">nazwa przedmiotu</h5>
+            <p class="card-text">cena/krótki opis</p>
         </div>
-    </div>
+    </label>   
+    <label class="card">
+        <img class="card-img-top" src="~/Content/temp/glowki/fu3.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">nazwa przedmiotu</h5>
+            <p class="card-text">cena/krótki opis</p>
+        </div>
+    </label>   
+    <label class="card">
+        <img class="card-img-top" src="~/Content/temp/glowki/fu4.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">nazwa przedmiotu</h5>
+            <p class="card-text">cena/krótki opis</p>
+        </div>
+    </label>   
+    <label class="card">
+        <img class="card-img-top" src="~/Content/temp/glowki/gp5.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">nazwa przedmiotu</h5>
+            <p class="card-text">cena/krótki opis</p>
+        </div>
+    </label>
     
-    <button type="submit">Dalej</button>
+    <label class="card">
+        <img class="card-img-top" src="~/Content/temp/glowki/gp6.png" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">nazwa przedmiotu</h5>
+            <p class="card-text">cena/krótki opis</p>
+        </div>
+    </label>
+</div>
+
 </form>
-
-
 
 <style>
 
-    .card-body {
+    .grid-body {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-gap: 20px;
         cursor: pointer;
+        /*border: 1px solid red;*/
     }
 
     [type=radio] {
@@ -72,7 +69,21 @@
         width: 0;
         height: 0;
     }
+
+    .card img {
+        width: 100%;
+    }
+
+
+    .mainCaption {
+        width: 100%;
+        border-bottom: 2px solid rgba(0, 0, 0, 1);
+        border-radius: 0 4px;
         
+    }
+    /*.card {
+        width: 100%;
+    }*/
     /*[type=radio] + img {
             cursor: pointer;
         }
@@ -94,13 +105,13 @@
 
         var labels = $('label');
 
-        $(labels).on('click', function() {
+        $(labels).on('click', function () {
             LabelManager(labels, $(this));
         });
 
-        
+
         function LabelManager(arrayOfLabels, clickedElement) {
-            for (var i =0 ; i < arrayOfLabels.length; i++) {
+            for (var i = 0; i < arrayOfLabels.length; i++) {
                 $(arrayOfLabels[i]).removeClass("bagno");
             }
 
