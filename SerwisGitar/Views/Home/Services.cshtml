@@ -1,28 +1,65 @@
 ﻿@model SerwisGitar.ViewModels.Home.HomeServicesViewModel
 
 
-<button class="btn btn-danger">Usługi są wczytywane na podstawie wybranego produktu. Można je zmienic w panelu admina. Wygląd tej strony zostanie zmieniony</button>
+@*<button class="btn btn-danger">Usługi są wczytywane na podstawie wybranego produktu. Można je zmienic w panelu admina. Wygląd tej strony zostanie zmieniony</button>*@
 
 <h2>Zamawianie usługi</h2>
+
+
 <hr />
 
+
+
 <h4>1. Wybierz rodzaj instrumentu</h4>
-<div class="form-group">
-    @Html.LabelFor(model => model.Instrument.InstrumentId, "Rodzaj instrumentu", htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.DropDownListFor(d => d.Instrument.InstrumentId, new SelectList(Model.Instruments, "InstrumentId", "Name"), "Wybierz instrument", htmlAttributes: new { @class = "form-control" })
-        @*@Html.DropDownList("ServiceTypeId", new SelectList(Model.Instruments, "InstrumentId", "Name"), "Wybierz instrument", htmlAttributes: new {@class = "form-control"})*@
-        @Html.ValidationMessageFor(model => model.Instrument.InstrumentId, "", new { @class = "text-danger" })
-    </div>
+
+@*<div class="contentGrid">*@
+<div class="grid-body form-check">
+    @foreach (var item in Model.Instruments)
+    {
+        <label class="card" for="@item.Name">
+            <img class="card-img-top" src="https://www.instrumentrentalbarcelona.com/wp-content/uploads/2018/02/Ibanez-PF15-ECE-NT-Electro-Acoustic-Guitar-front.jpg" alt="Card image cap">
+            <input type="radio" id="@item.Name" name="productId" value="@item.InstrumentId" />
+            <div class="card-body">
+                @*<h5 class="card-title">@item.Name</h5>*@
+                <p class="card-text">@item.Name</p>
+            </div>
+        </label>
+    }
+    @*<label class="card" for="2">
+            <img class="card-img-top" src="https://www.instrumentrentalbarcelona.com/wp-content/uploads/2018/02/Ibanez-PF15-ECE-NT-Electro-Acoustic-Guitar-front.jpg" alt="Card image cap">
+            <input type="radio" id="2" name="productId" value="5"/>
+            <div class="card-body">
+                <h5 class="card-title">nazwa przedmiotu</h5>
+                <p class="card-text">cena/krótki opis</p>
+            </div>
+        </label>*@
 </div>
+@*</div>*@
+
+@*<div class="form-group">
+        @Html.LabelFor(model => model.Instrument.InstrumentId, "Rodzaj instrumentu", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(d => d.Instrument.InstrumentId, new SelectList(Model.Instruments, "InstrumentId", "Name"), "Wybierz instrument", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Instrument.InstrumentId, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+<p style="font-style: italic; color: crimson; margin: 2rem 1rem;">
+    Uwaga, wszystkie usługi są opisane ogólnie. Cena każdej usługi może się różnić ze względu na faktyczny stan instrumentu lub dodatkowe wymagane prace i poprawki.
+    <br />
+    Wszystkie pozostałe kwestie lub szczegóły należy uzgodnić z przedstawicielem serwisu telefonicznie bądź mailowo.
+</p>
 
 
 @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post, new { @id = "form" }))
 {
+
 }
 
+@Html.Hidden("IsAuthenticated", User.Identity.IsAuthenticated, new { id = "IsAuthenticated" })
+@*@User.Identity.IsAuthenticated*@
 
-<div style="position: fixed; top: 13rem; right: 25rem;">
+<div style="position: fixed; bottom: 5rem; right: 25rem;">
     <h1>Cena razem ~ <span class="totalPrice">0</span>zł</h1>
 </div>
 
@@ -30,17 +67,67 @@
     <script src="~/Content/script.js"></script>
 
     <script>
-        //var totalPrice = 0;
-        //$(document).ready(function () {
-        //    $('html').on('click', function () {
-        //        for (var i = 0; i < checkboxes.length; i++) {
-        //            if (checkboxes[i].checked) {
-        //                totalPrice += prices[i].textContent;
-        //            }
-        //        }
-        //    });
-        //});
 
+
+        $('input[type=radio][name=productId]').change(function () {
+            //alert();;
+        });
+
+        var labels = $('label');
+
+        $(labels).on('click', function () {
+            LabelManager(labels, $(this));
+        });
+
+
+        function LabelManager(arrayOfLabels, clickedElement) {
+            for (var i = 0; i < arrayOfLabels.length; i++) {
+                $(arrayOfLabels[i]).removeClass("bagno");
+            }
+
+            $(clickedElement).addClass("bagno");
+        }
     </script>
 }
+
+<style>
+
+    form {
+        min-height: 19rem;
+        /*background: red;*/
+    }
+
+    .grid-body {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-gap: 20px;
+        cursor: pointer;
+        /*border: 1px solid red;*/
+    }
+
+    [type=radio] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .card img {
+        width: 100%;
+    }
+
+
+    .mainCaption {
+        width: 100%;
+        border-bottom: 2px solid rgba(0, 0, 0, 1);
+        border-radius: 0 4px;
+    }
+
+
+    .bagno {
+        -webkit-box-shadow: 0px 0px 31px -9px rgba(0,0,0,1);
+        -moz-box-shadow: 0px 0px 31px -9px rgba(0,0,0,1);
+        box-shadow: 0px 0px 31px -9px rgba(0,0,0,1);
+    }
+</style>
 

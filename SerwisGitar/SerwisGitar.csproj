@@ -243,6 +243,10 @@
     <Compile Include="Migrations\202005122126107_PopulateImagesAndGalleriesTables.designer.cs">
       <DependentUpon>202005122126107_PopulateImagesAndGalleriesTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005141247563_SetServiceIdColumnInShoppingCartTableToOptional.cs" />
+    <Compile Include="Migrations\202005141247563_SetServiceIdColumnInShoppingCartTableToOptional.designer.cs">
+      <DependentUpon>202005141247563_SetServiceIdColumnInShoppingCartTableToOptional.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -949,6 +953,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005122126107_PopulateImagesAndGalleriesTables.resx">
       <DependentUpon>202005122126107_PopulateImagesAndGalleriesTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005141247563_SetServiceIdColumnInShoppingCartTableToOptional.resx">
+      <DependentUpon>202005141247563_SetServiceIdColumnInShoppingCartTableToOptional.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

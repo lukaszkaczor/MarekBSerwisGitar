@@ -14,8 +14,8 @@ namespace SerwisGitar.Models.DbModels
         public int InstrumentId { get; set; }
         public Instrument Instrument { get; set; }
 
-        [Required]
-        public int ServiceId { get; set; }
+        //[Required]
+        public int? ServiceId { get; set; }
 
         public Service Service { get; set; }
 

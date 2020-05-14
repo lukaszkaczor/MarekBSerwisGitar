@@ -22,15 +22,19 @@
     {
         <tr>
             <td style="width: 50%">
-                @item.ServiceDescription
-                @item.Service.Name - @item.Instrument.Name
+                @item.ServiceDescription 
+              
+                @(item.Service?.Name) - @(item.Instrument?.Name)
             </td>
             <td>
-                @item.Service.Price.ToString("F") zł
+                @(item.Service?.Price.ToString("F")) zł
 
-                @{
+
+                @if (item.Service != null)
+                {
                     total += item.Service.Price;
                 }
+
             </td>
             <td>
                 @using (Html.BeginForm("DeleteFromCart", "ShoppingCart", FormMethod.Post))

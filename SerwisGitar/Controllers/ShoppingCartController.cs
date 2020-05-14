@@ -33,7 +33,7 @@ namespace SerwisGitar.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult AddToCart(HomeServicesViewModel model, int InstrumentId, string serviceDescription)
+        public ActionResult AddToCart(HomeServicesViewModel model, int InstrumentId)
         {
             var userId = User.Identity.GetUserId();
             var shoppingList = new List<ShoppingCart>();
@@ -51,12 +51,12 @@ namespace SerwisGitar.Controllers
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(serviceDescription))
+            if (!string.IsNullOrWhiteSpace(model.Message))
             {
                 shoppingList.Add(new ShoppingCart()
                 {
                     ApplicationUserId = userId,
-                    ServiceDescription = serviceDescription,
+                    ServiceDescription = model.Message,
                     InstrumentId = InstrumentId
                 });
             }
