@@ -1,0 +1,40 @@
+﻿
+<div id="container">
+    
+
+</div>
+
+<ul id="myList">
+    <li>Coffee</li>
+    <li>Tea</li>
+</ul>
+
+<button onclick="myFunction()">Try it</button>
+@section scripts
+{
+    <script>
+        var ss;
+        //var d1 = document.getElementById('container');
+        //d1.insertAdjacentHTML('afterend', '<div id="two">two</div>');
+        function myFunction() {
+            var node = document.createElement("LI");
+            var textnode = document.createTextNode("Water");
+            node.appendChild(textnode);
+            document.getElementById("myList").appendChild(node);
+            //alert($('li').length);
+
+        }
+
+        $('html').on('click',
+            function () {
+
+                alert($('li'));
+                //var array = $('li');
+                //ss = array;
+                //var text = array.join();
+
+                //alert(text);
+            });
+
+    </script>
+}

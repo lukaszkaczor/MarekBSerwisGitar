@@ -1,10 +1,10 @@
 ﻿@model SerwisGitar.ViewModels.Home.HomeServicesViewModel
 
 
-    <button class="btn btn-danger">Usługi są wczytywane na podstawie wybranego produktu. Można je zmienic w panelu admina. Wygląd tej strony zostanie zmieniony</button>
+<button class="btn btn-danger">Usługi są wczytywane na podstawie wybranego produktu. Można je zmienic w panelu admina. Wygląd tej strony zostanie zmieniony</button>
 
 <h2>Zamawianie usługi</h2>
-<hr/>
+<hr />
 
 <h4>1. Wybierz rodzaj instrumentu</h4>
 <div class="form-group">
@@ -22,15 +22,24 @@
 }
 
 
+<div style="position: fixed; top: 13rem; right: 25rem;">
+    <h1>Cena razem ~ <span class="totalPrice">0</span>zł</h1>
+</div>
+
 @section Scripts{
     <script src="~/Content/script.js"></script>
 
     <script>
-        $(document).ready(function() {
-            $('input').change(function() {
-                alert();
-            });
-        });
+        //var totalPrice = 0;
+        //$(document).ready(function () {
+        //    $('html').on('click', function () {
+        //        for (var i = 0; i < checkboxes.length; i++) {
+        //            if (checkboxes[i].checked) {
+        //                totalPrice += prices[i].textContent;
+        //            }
+        //        }
+        //    });
+        //});
 
     </script>
 }

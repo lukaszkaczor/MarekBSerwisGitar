@@ -1,5 +1,11 @@
 ﻿var flag = true;
 var dataArray;
+
+var checkboxes;
+var prices;
+var totalPrice = 0;
+var f2 = false;
+
 $(document).ready(function () {
     $("#Instrument_InstrumentId").change(function () {
 
@@ -21,7 +27,7 @@ $(document).ready(function () {
                     '<input class="form-check-input" data-val="true" id="Services_' + i + '__IsChecked" name="Services[' + i + '].IsChecked" type="checkbox" value="true" />' +
                     '<input name="Services[' + i + '].IsChecked" type="hidden" value="false" />)' +
                     '<input data-val="true" data-val-required="Pole ServiceId jest wymagane." id="Services_' + i + '__ServiceId" name="Services[' + i + '].ServiceId" type="hidden" value="' + dataArray[i].ServiceId + '" />' +
-                    '<label class="form-check-label" for="Services_'+i+'__IsChecked">' + dataArray[i].ServiceName + ' (' + dataArray[i].ServicePrice + 'zł)' + '</label>' +
+                    '<label class="form-check-label" for="Services_'+i+'__IsChecked">' + dataArray[i].ServiceName + ' (<span class="price">' + dataArray[i].ServicePrice + '</span>zł)' + '</label>' +
                     '</div>');
 
 
@@ -36,7 +42,26 @@ $(document).ready(function () {
             //    '<label for= "serviceDescription">Inne (cena do uzgodnienia)</label>' +
             //    '<textarea class="form-control" name="serviceDescription" id="serviceDescription" rows="3"></textarea></div>');
             $("#form").append('<button class="btn btn-success">Przejdź do koszyka</button>');
+
+            checkboxes = $('.form-check-input');
+            prices = $('.price');
+            totalPrice = 0;
+            $('.totalPrice').text(totalPrice);
+            f2 = true;
         });
     });
 
+    $('form').on('click', function () {
+        if (f2 == true) {
+            totalPrice = 0;
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    var chuj = parseFloat(prices[i].textContent);
+                    totalPrice = totalPrice + chuj;
+                }
+            }
+            $('.totalPrice').text(totalPrice);
+        }
+    });
 });
+

@@ -20,6 +20,11 @@ namespace SerwisGitar.Controllers
             return View();
         }
 
+        public ActionResult Test()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             var model = _context.ContentEditor.Where(d=>d.IsDraftVersion == false).FirstOrDefault(d => d.Page == Page.HomeAbout);
