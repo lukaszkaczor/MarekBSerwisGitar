@@ -1,81 +1,162 @@
-﻿
+﻿@using System.Activities.Expressions
+@model SerwisGitar.ViewModels.CustomInstruments.CustomInstrumentViewModel
 @{
     ViewBag.Title = "Personalizowanie gitary";
+    int classNumber = 0;
 }
 
-<form>
-<h2 class="mainCaption">Kształt główki</h2>
-    @*<div class="form-check form-check-inline">
-        <label class="form-check-label" for="inlineRadio1">
-            <img class="card-img-top" src="~/Content/temp/glowki/fu 1.png" alt="Card image cap">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-            <div class="card-body">
-                <h5 class="card-title">nazwa przedmiotu</h5>
-                <p class="card-text">cena/krótki opis</p>
+<h2>Personalizowanie gitary</h2>
+
+<h5>Do ceny instrumentu należy dodać kwotę adekwatną do wartości części montowanych na życzenie klienta.</h5>
+@using (Html.BeginForm("Save", "CustomInstruments", FormMethod.Post, new { @class = "accordion", id = "accordionExample" }))
+{
+    @*<form class="accordion" id="accordionExample">*@
+
+
+    <div class="card">
+        <div class="card-header" id="headingRodzaj">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseRodzaj" aria-expanded="false" aria-controls="collapseRodzaj">
+                    Rodzaj <span class="selectedItem"></span>
+                </button>
+            </h2>
+        </div>
+        <div id="collapseRodzaj" class="collapse show" aria-labelledby="headingRodzaj" data-parent="#accordionExample">
+            <div class="card-body grid-body">
+                @foreach (var instrument in Model.Instruments)
+                {
+                    <label class="card c@(classNumber)" for="@instrument.Name">
+                        <img class="card-img-top" src="@instrument.ImageUrl" alt="Card image cap">
+                        <input type="radio" id="@instrument.Name" name="Instrument.InstrumentId" value="@instrument.InstrumentId" class="inputHidden" />
+                        <div class="flexEnd">
+                            @*<h5 class="card-title">@item.Name</h5>*@
+                            <p class="card-text">@instrument.Name</p>
+                        </div>
+                    </label>
+
+                }
+                @{
+                    classNumber++;
+                }
             </div>
-        </label>
-    </div>
-    
-    <div class="form-check form-check-inline">
-        <label class="form-check-label" for="inlineRadio2">
-            <img class="card-img-top" src="~/Content/temp/glowki/fu 1.png" alt="Card image cap">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-            <div class="card-body">
-                <h5 class="card-title">nazwa przedmiotu</h5>
-                <p class="card-text">cena/krótki opis</p>
-            </div>
-        </label>
+        </div>
     </div>
 
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-        <label class="form-check-label" for="inlineRadio2">2</label>
-    </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
-        <label class="form-check-label" for="inlineRadio3">3 (disabled)</label>
-    </div>*@
-    <div class="grid-body form-check">
-        <label class="card" for="1">
-            <img class="card-img-top" src="https://www.instrumentrentalbarcelona.com/wp-content/uploads/2018/02/Ibanez-PF15-ECE-NT-Electro-Acoustic-Guitar-front.jpg" alt="Card image cap">
-            <input type="radio" id="1" name="1" value="jeden"/>
-            <div class="card-body">
-                <h5 class="card-title">nazwa przedmiotu</h5>
-                <p class="card-text">cena/krótki opis</p>
+
+    for (int i = 0; i < Model.PartTypes.Count; i++)
+    {
+        <div class="card">
+            <div class="card-header" id="heading@(Model.PartTypes[i].PartTypeId)">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapse@(Model.PartTypes[i].PartTypeId)" aria-expanded="false" aria-controls="collapse@(Model.PartTypes[i].PartTypeId)">
+                        @Model.PartTypes[i].Name <span class="selectedItem"></span>
+                    </button>
+                </h2>
             </div>
-        </label>   
-        <label class="card" for="2">
-            <img class="card-img-top" src="https://www.instrumentrentalbarcelona.com/wp-content/uploads/2018/02/Ibanez-PF15-ECE-NT-Electro-Acoustic-Guitar-front.jpg" alt="Card image cap">
-            <input type="radio" id="2" name="1" value="dwa" />
-            <div class="card-body">
-                <h5 class="card-title">nazwa przedmiotu</h5>
-                <p class="card-text">cena/krótki opis</p>
+            <div id="collapse@(Model.PartTypes[i].PartTypeId)" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body grid-body">
+
+                    @for (int j = 0; j < Model.PartTypes[i].GuitarParts.Count; j++)
+                    {
+                        <label class="card c@(classNumber)">
+                            @Html.RadioButtonFor(d => Model.SelectedParts[i].GuitarPartId, @Model.PartTypes[i].GuitarParts[j].GuitarPartId, new { @class = "inputHidden" })
+                            <img class="card-img-top" src="@Model.PartTypes[i].GuitarParts[j].ImageUrl" alt="@j">
+
+                            <div class="flexEnd">
+                                <p class="card-text">@Model.PartTypes[i].GuitarParts[j].Name</p>
+                            </div>
+                        </label>
+
+                    }
+                    @{
+                        classNumber++;
+                    }
+
+                </div>
             </div>
-        </label>
-    </div>
-    <button>aa</button>
-
-</form>
-
-<style>
-
-    .grid-body {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        grid-gap: 20px;
-        cursor: pointer;
-        /*border: 1px solid red;*/
+        </div>
     }
 
-    [type=radio] {
+
+    <div class="card">
+        <div class="card-header" id="headingKolory">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseKolory" aria-expanded="false" aria-controls="collapseKolory">
+                    Kolory
+                </button>
+            </h2>
+        </div>
+        <div id="collapseKolory" class="collapse" aria-labelledby="headingKolory" data-parent="#accordionExample">
+            <div class="card-body">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Instruments, "Kolor przód", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="color" id="favcolor" name="PrimaryColor" value="#ff0000">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Instruments, "Kolor tył + gryf", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="color" id="favcolor" name="SecondaryColor" value="#ff0000">
+                    </div>
+                </div>
+
+                <h5 style="color: crimson; font-style: italic">Efekt końcowy może różnić się od koloru wyświetlanego na ekranie, dlatego zostanie on doprecyzowany przy osobistej wizycie.</h5>
+            </div>
+        </div>
+    </div>
+
+    <h5 style="color: crimson; font-style: italic; margin: 20px 0 0 0; display: none" id="info" class="hidden">Uzupełnij wszystkie pola</h5>
+    <button class="btn btn-success" id="btn-submit" style="margin-top: 20px;">Wyślij</button>
+}
+@*</form>*@
+
+
+
+
+
+
+
+<style>
+    .grid-body {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-gap: 20px;
+        cursor: pointer;
+    }
+
+
+    .inputHidden {
         position: absolute;
-        opacity: 0;
+        /*opacity: 0;*/
+        /*transform: translateX(50%);*/
+        left: 30px;
+        top: 20px;
         width: 0;
         height: 0;
     }
 
-    .card img {
-        width: 100%;
+    .flexEnd {
+        padding: .5rem;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+        .card img {
+            width: 100%;
+            /*height: 100%;*/
+            padding: 5px;
+        }
+
+    .selectedItem {
+        color: green;
+        font-weight: bold;
     }
 
 
@@ -83,11 +164,10 @@
         width: 100%;
         border-bottom: 2px solid rgba(0, 0, 0, 1);
         border-radius: 0 4px;
-        
     }
 
 
-    .bagno {
+    .boxShadow {
         -webkit-box-shadow: 0px 0px 31px -9px rgba(0,0,0,1);
         -moz-box-shadow: 0px 0px 31px -9px rgba(0,0,0,1);
         box-shadow: 0px 0px 31px -9px rgba(0,0,0,1);
@@ -96,20 +176,41 @@
 
 @section Scripts{
     <script>
-
         var labels = $('label');
+        var cards = $('.card-header').length;
+        var classIndex;
+        var buttons = $('.selectedItem');
+        var item;
 
-        $(labels).on('click', function () {
-            LabelManager(labels, $(this));
-        });
+        $(labels).on('click',
+            function () {
+                for (var i = 0; i < labels.length; i++) {
 
+                    if ($(this).hasClass(`c${i}`)) {
+                        classIndex = i;
+                    };
 
-        function LabelManager(arrayOfLabels, clickedElement) {
-            for (var i = 0; i < arrayOfLabels.length; i++) {
-                $(arrayOfLabels[i]).removeClass("bagno");
+                    if ($(labels[i]).hasClass(`c${classIndex}`)) {
+                        $(labels[i]).removeClass("boxShadow");
+                    };
+                }
+                $(buttons[classIndex]).text($(this).find('div').text());
+                $(this).addClass("boxShadow");
+            });
+
+        $('form').submit(function (e) {
+            e.preventDefault(e);
+            let flag = false;
+
+            for (let i = 0; i < buttons.length; i++) {
+                if ($(buttons[i]).text() === "") {
+                    $('#info').show();
+                    flag = true;
+                }
             }
-
-            $(clickedElement).addClass("bagno");
-        }
+            if (!flag) {
+                this.submit();
+            }
+        });
     </script>
 }

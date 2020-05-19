@@ -1,7 +1,7 @@
 ﻿@model SerwisGitar.ViewModels.Instruments.CreateInstrumentViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Zapisz";
     var flag = false;
 }
 
@@ -20,6 +20,13 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Instrument.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Instrument.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Instrument.ImageUrl, "Zdjęcie", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Instrument.ImageUrl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Instrument.ImageUrl, "", new { @class = "text-danger" })
             </div>
         </div>
 

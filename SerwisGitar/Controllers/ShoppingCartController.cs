@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Xml.Schema;
@@ -21,7 +22,7 @@ namespace SerwisGitar.Controllers
 
             var carts = _context.ShoppingCarts
                 .Include(d => d.Instrument)
-                .Include(d => d.Service)
+                .Include(d => d.Service.ServiceType)
                 .Where(d => d.ApplicationUserId == userId).ToList();
 
             var model = new List<ShoppingCart>();
@@ -67,15 +68,27 @@ namespace SerwisGitar.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult DeleteFromCart(int itemId)
+        public ActionResult DeleteFromCart(int? itemId, string itemName)
         {
             var userId = User.Identity.GetUserId();
+            ShoppingCart productToDelete;
 
-            var productToDelete = _context.ShoppingCarts.Where(d => d.ApplicationUserId == userId)
-                .FirstOrDefault(d => d.ServiceId == itemId);
+            if (itemId is null)
+            {
+                productToDelete = _context.ShoppingCarts.Where(d => d.ApplicationUserId == userId)
+                    .FirstOrDefault(d => d.ServiceDescription == itemName);
+            }
+            else
+            {
+                productToDelete = _context.ShoppingCarts.Where(d => d.ApplicationUserId == userId)
+                    .FirstOrDefault(d => d.ServiceId == itemId);
+            }
 
-            _context.ShoppingCarts.Remove(productToDelete);
-            _context.SaveChanges();
+            if (productToDelete != null)
+            {
+                _context.ShoppingCarts.Remove(productToDelete);
+                _context.SaveChanges();
+            }
 
             return RedirectToAction("Index");
         }

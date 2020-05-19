@@ -1,7 +1,9 @@
 ﻿@model SerwisGitar.ViewModels.Home.HomeServicesViewModel
 
 
-@*<button class="btn btn-danger">Usługi są wczytywane na podstawie wybranego produktu. Można je zmienic w panelu admina. Wygląd tej strony zostanie zmieniony</button>*@
+@{
+    ViewBag.Title = "Złóż zamówienie";
+}
 
 <h2>Zamawianie usługi</h2>
 
@@ -17,7 +19,7 @@
     @foreach (var item in Model.Instruments)
     {
         <label class="card" for="@item.Name">
-            <img class="card-img-top" src="https://www.instrumentrentalbarcelona.com/wp-content/uploads/2018/02/Ibanez-PF15-ECE-NT-Electro-Acoustic-Guitar-front.jpg" alt="Card image cap">
+            <img class="card-img-top" src="@item.ImageUrl" alt="Card image cap">
             <input type="radio" id="@item.Name" name="productId" value="@item.InstrumentId" />
             <div class="card-body">
                 @*<h5 class="card-title">@item.Name</h5>*@
@@ -25,24 +27,9 @@
             </div>
         </label>
     }
-    @*<label class="card" for="2">
-            <img class="card-img-top" src="https://www.instrumentrentalbarcelona.com/wp-content/uploads/2018/02/Ibanez-PF15-ECE-NT-Electro-Acoustic-Guitar-front.jpg" alt="Card image cap">
-            <input type="radio" id="2" name="productId" value="5"/>
-            <div class="card-body">
-                <h5 class="card-title">nazwa przedmiotu</h5>
-                <p class="card-text">cena/krótki opis</p>
-            </div>
-        </label>*@
 </div>
-@*</div>*@
 
-@*<div class="form-group">
-        @Html.LabelFor(model => model.Instrument.InstrumentId, "Rodzaj instrumentu", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(d => d.Instrument.InstrumentId, new SelectList(Model.Instruments, "InstrumentId", "Name"), "Wybierz instrument", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Instrument.InstrumentId, "", new { @class = "text-danger" })
-        </div>
-    </div>*@
+
 
 <p style="font-style: italic; color: crimson; margin: 2rem 1rem;">
     Uwaga, wszystkie usługi są opisane ogólnie. Cena każdej usługi może się różnić ze względu na faktyczny stan instrumentu lub dodatkowe wymagane prace i poprawki.
@@ -51,7 +38,7 @@
 </p>
 
 
-@using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post, new { @id = "form" }))
+@using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post, new { @id = "form", style="min-height: 18rem" }))
 {
 
 }
@@ -93,7 +80,7 @@
 <style>
 
     form {
-        min-height: 19rem;
+        /*min-height: 19rem;*/
         /*background: red;*/
     }
 
@@ -112,8 +99,16 @@
         height: 0;
     }
 
+
+
+    .card-body {
+        display: flex;
+        align-items: flex-end;
+    }
+
     .card img {
         width: 100%;
+        padding: 5px;
     }
 
 

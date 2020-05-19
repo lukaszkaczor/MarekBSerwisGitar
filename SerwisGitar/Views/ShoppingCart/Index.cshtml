@@ -7,56 +7,77 @@
 }
 
 
-<table class="table table-striped">
-    <tr>
-        <th style="width: 50%">
-            Nazwa
-        </th>
-        <th>
-            Cena 
-        </th>
-        <th>Usuń</th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+@if (Model.Count == 0)
+{
+    <h1>Koszyk jest pusty</h1>
+}
+else
+{
+    <table class="table table-striped">
         <tr>
-            <td style="width: 50%">
-                @item.ServiceDescription 
-              
-                @(item.Service?.Name) - @(item.Instrument?.Name)
-            </td>
-            <td>
-                @(item.Service?.Price.ToString("F")) zł
-
-
-                @if (item.Service != null)
-                {
-                    total += item.Service.Price;
-                }
-
-            </td>
-            <td>
-                @using (Html.BeginForm("DeleteFromCart", "ShoppingCart", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("itemId", item.ServiceId)
-                    <button type="submit" class="btn btn-danger">x</button>
-                }
-            </td>
+            <th style="width: 50%">
+                Nazwa
+            </th>
+            <th>
+                Cena
+            </th>
+            <th class="center">Usuń</th>
         </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="width: 75%">
+                    @item.ServiceDescription
+
+                    @(item.Service.ServiceType.Name): @(item.Service?.Name) - @(item.Instrument?.Name)
+                </td>
+                <td>
+                    ~@(item.Service?.Price.ToString("F")) zł
+
+
+                    @if (item.Service != null)
+                    {
+                        total += item.Service.Price;
+                    }
+
+                </td>
+                <td>
+                    @using (Html.BeginForm("DeleteFromCart", "ShoppingCart", FormMethod.Post, new { @class = "center" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("itemId", item.ServiceId)
+                        @Html.Hidden("itemName", item.ServiceDescription)
+                        <button  style="margin: 0 auto" type="submit" class="btn btn-danger">x</button>
+                    }
+                </td>
+            </tr>
+        }
+
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td class="center"><strong>Razem:&nbsp</strong>~@total.ToString("F") zł</td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td><a href="@Url.Action("Index", "Orders")" class="btn btn-primary">Zarezerwuj termin</a></td>
+        </tr>
+    </table>
+}
+
+<style>
+
+    .center {
+        display: flex;
+        justify-content: center;
     }
-
-
-    <tr>
-        <td></td>
-        <td></td>
-        <td style=""><strong>Razem:</strong> @total.ToString("F") zł</td>
-    </tr>
-
-    <tr>
-        <td></td>
-        <td></td>
-        <td><a href="@Url.Action("Index", "Orders")" class="btn btn-primary">Złóż zamówienie</a> <-- nie działa</td>
-    </tr>
-</table>
+        /*
+    .right {
+        display: flex;
+        justify-content: flex-end;
+    }*/
+</style>

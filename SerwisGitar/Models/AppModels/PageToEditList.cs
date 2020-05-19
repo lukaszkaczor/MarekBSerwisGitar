@@ -10,6 +10,11 @@ namespace SerwisGitar.Models.AppModels
             {
                 Name = "O nas",
                 Page = Page.HomeAbout
+            },
+            new PageDescription()
+            {
+                Name = "Strona główna",
+                Page = Page.HomeIndex
             }
         };
     }

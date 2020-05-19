@@ -111,6 +111,8 @@ namespace SerwisGitar.Controllers
             {
                 mainGallery.OurInstrumentsId = model.Gallery.OurInstrumentsId;
                 mainGallery.ServiceGalleryId = model.Gallery.ServiceGalleryId;
+                mainGallery.Title= model.Gallery.Title;
+                mainGallery.Description= model.Gallery.Description;
             }
 
             _context.SaveChanges();

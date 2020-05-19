@@ -5,6 +5,8 @@ namespace SerwisGitar.Models.DbModels
     public class MainGallery
     {
         public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
 
         [ForeignKey("ServiceGallery")]
         public int? ServiceGalleryId { get; set; }

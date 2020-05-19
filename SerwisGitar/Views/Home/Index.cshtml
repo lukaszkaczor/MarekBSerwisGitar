@@ -1,13 +1,13 @@
-﻿@model SerwisGitar.Models.Test
+﻿@model SerwisGitar.Models.DbModels.ContentEditor
 
 @{
     ViewBag.Title = "Serwis gitar";
 }
 
-<button class="btn btn-danger">Wygląd tej strony (jak i innych) moze sie zmienic. Zawarte w nich treści będa generować sie na podstawie bazy danych, teraz jednak jest to statyczny HTML. </button>
 
+@Html.Raw(Model?.Content)
 
-<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+@*<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
@@ -18,7 +18,6 @@
             <img src="https://www.taylorguitars.com/sites/default/files/styles/hero_rotator/public/HERO-BE-2250x762TAYLOR-BE-MAINSTORY-BE-LINEUP_0.jpg?itok=J3EmZiBy" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
                 <h5>Poprawiamy nie tylko funkcjonalność instrumentów ale także ich właściwości akustyczne</h5>
-                @*<p>Poprawiamy nie tylko funkcjonalność instrumentów ale także</p>*@
             </div>
         </div>
     </div>
@@ -141,10 +140,9 @@
         }*/
 
     .item {
-        /*border: 1px solid red;*/
         display: flex;
         justify-content: center;
         align-items: center;
     }
-</style>
+</style>*@
 

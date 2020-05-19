@@ -17,7 +17,9 @@ namespace SerwisGitar.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var model = _context.ContentEditor.Where(d => d.IsDraftVersion == false)
+                .FirstOrDefault(d => d.Page == Page.HomeIndex);
+            return View(model);
         }
 
         public ActionResult Test()

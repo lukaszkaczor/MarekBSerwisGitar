@@ -62,6 +62,12 @@ namespace SerwisGitar.Controllers
                 _context.Instruments.Add(model.Instrument);
                 _context.SaveChanges();
             }
+            else
+            {
+                var instrument = _context.Instruments.Find(model.Instrument.InstrumentId);
+                instrument.Name = model.Instrument.Name;
+                instrument.ImageUrl = model.Instrument.ImageUrl;
+            }
 
             foreach (var service in model.Services)
             {

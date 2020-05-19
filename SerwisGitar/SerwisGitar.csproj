@@ -177,10 +177,12 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CustomInstrumentsController.cs" />
     <Compile Include="Controllers\GalleriesController.cs" />
+    <Compile Include="Controllers\GuitarPartsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\InstrumentsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PartTypesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\ServiceTypesController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
@@ -247,30 +249,55 @@
     <Compile Include="Migrations\202005141247563_SetServiceIdColumnInShoppingCartTableToOptional.designer.cs">
       <DependentUpon>202005141247563_SetServiceIdColumnInShoppingCartTableToOptional.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005181206438_AddImageUrlColumnToInsturmentsTable.cs" />
+    <Compile Include="Migrations\202005181206438_AddImageUrlColumnToInsturmentsTable.designer.cs">
+      <DependentUpon>202005181206438_AddImageUrlColumnToInsturmentsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005181404253_AddTitleAndDescriptionColumnsToMainGalleryTable.cs" />
+    <Compile Include="Migrations\202005181404253_AddTitleAndDescriptionColumnsToMainGalleryTable.designer.cs">
+      <DependentUpon>202005181404253_AddTitleAndDescriptionColumnsToMainGalleryTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005191028524_AddPartTypesAndGuitarPartsTables.cs" />
+    <Compile Include="Migrations\202005191028524_AddPartTypesAndGuitarPartsTables.designer.cs">
+      <DependentUpon>202005191028524_AddPartTypesAndGuitarPartsTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005191032032_AddImageUrlColumnToGuitarPartsTable.cs" />
+    <Compile Include="Migrations\202005191032032_AddImageUrlColumnToGuitarPartsTable.designer.cs">
+      <DependentUpon>202005191032032_AddImageUrlColumnToGuitarPartsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005191737238_AddCustomInstrumentPartsTable.cs" />
+    <Compile Include="Migrations\202005191737238_AddCustomInstrumentPartsTable.designer.cs">
+      <DependentUpon>202005191737238_AddCustomInstrumentPartsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\AppModels\InstrumentWithService.cs" />
     <Compile Include="Models\AppModels\PageDescription.cs" />
     <Compile Include="Models\AppModels\PageToEditList.cs" />
+    <Compile Include="Models\AppModels\TypeWithItsParts.cs" />
     <Compile Include="Models\DbModels\ContentEditor.cs" />
+    <Compile Include="Models\DbModels\CustomInstrument.cs" />
+    <Compile Include="Models\DbModels\CustomInstrumentParts.cs" />
     <Compile Include="Models\DbModels\Gallery.cs" />
+    <Compile Include="Models\DbModels\GuitarPart.cs" />
     <Compile Include="Models\DbModels\Image.cs" />
     <Compile Include="Models\DbModels\ImageGallery.cs" />
     <Compile Include="Models\DbModels\Instrument.cs" />
     <Compile Include="Models\DbModels\InstrumentServices.cs" />
     <Compile Include="Models\DbModels\MainGallery.cs" />
+    <Compile Include="Models\DbModels\PartType.cs" />
     <Compile Include="Models\DbModels\Service.cs" />
     <Compile Include="Models\DbModels\ServiceType.cs" />
     <Compile Include="Models\DbModels\ShoppingCart.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Admin\EditMainGalleryViewModel.cs" />
     <Compile Include="ViewModels\ContentEditor\ContentEditorViewModel.cs" />
+    <Compile Include="ViewModels\CustomInstruments\CustomInstrumentViewModel.cs" />
     <Compile Include="ViewModels\Galleries\AddImageViewModel.cs" />
     <Compile Include="ViewModels\Galleries\GalleryViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeGalleryViewModel.cs" />
@@ -819,6 +846,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -895,7 +923,16 @@
     <Content Include="Views\Instruments\Save.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\PartTypes\Create.cshtml" />
+    <Content Include="Views\PartTypes\Delete.cshtml" />
+    <Content Include="Views\PartTypes\Details.cshtml" />
+    <Content Include="Views\PartTypes\Edit.cshtml" />
+    <Content Include="Views\PartTypes\Index.cshtml" />
+    <Content Include="Views\GuitarParts\Create.cshtml" />
+    <Content Include="Views\GuitarParts\Delete.cshtml" />
+    <Content Include="Views\GuitarParts\Details.cshtml" />
+    <Content Include="Views\GuitarParts\Edit.cshtml" />
+    <Content Include="Views\GuitarParts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -956,6 +993,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005141247563_SetServiceIdColumnInShoppingCartTableToOptional.resx">
       <DependentUpon>202005141247563_SetServiceIdColumnInShoppingCartTableToOptional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005181206438_AddImageUrlColumnToInsturmentsTable.resx">
+      <DependentUpon>202005181206438_AddImageUrlColumnToInsturmentsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005181404253_AddTitleAndDescriptionColumnsToMainGalleryTable.resx">
+      <DependentUpon>202005181404253_AddTitleAndDescriptionColumnsToMainGalleryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005191028524_AddPartTypesAndGuitarPartsTables.resx">
+      <DependentUpon>202005191028524_AddPartTypesAndGuitarPartsTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005191032032_AddImageUrlColumnToGuitarPartsTable.resx">
+      <DependentUpon>202005191032032_AddImageUrlColumnToGuitarPartsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005191737238_AddCustomInstrumentPartsTable.resx">
+      <DependentUpon>202005191737238_AddCustomInstrumentPartsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
