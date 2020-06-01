@@ -7,9 +7,12 @@
         HomeAbout = 2
     }
 
-    public enum MenuType
+    public enum OrderStatus
     {
-
+        Utworzone = 0,
+        Przyjęte = 1,
+        Zakończone = 2,
+        Anulowane = 3
     }
 
 

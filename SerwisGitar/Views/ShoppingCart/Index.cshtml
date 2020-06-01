@@ -1,4 +1,5 @@
 ﻿@using System.Security.Principal
+@using SerwisGitar.Models.DbModels
 @model List<SerwisGitar.Models.DbModels.ShoppingCart>
 
 @{
@@ -13,6 +14,8 @@
 }
 else
 {
+    <h2>Koszyk</h2>
+
     <table class="table table-striped">
         <tr>
             <th style="width: 50%">
@@ -27,13 +30,30 @@ else
         @foreach (var item in Model)
         {
             <tr>
-                <td style="width: 75%">
-                    @item.ServiceDescription
 
-                    @(item.Service.ServiceType.Name): @(item.Service?.Name) - @(item.Instrument?.Name)
+                <td style="width: 75%">
+                    @if (item.CustomInstrumentId != null)
+                    {
+                        <a href="#" style="text-decoration: none">@(item.CustomInstrument.Instrument.Name) - instrument spersonalizowany (kliknij, aby zobaczyć szczegóły)</a>
+                    }
+                    else
+                    {
+                        <p>@item.ServiceDescription</p>
+
+                        <p>@(item.Service?.ServiceType?.Name): @(item.Service?.Name) - @(item.Instrument.Name)</p>
+
+                    }
                 </td>
                 <td>
-                    ~@(item.Service?.Price.ToString("F")) zł
+                    @if (item.CustomInstrumentId != null)
+                    {
+                        <p>Do uzgodnienia</p>
+                    }
+                    else
+                    {
+                        <p>~@(item.Service?.Price.ToString("F")) zł</p>
+                    }
+                    @*~@(item.Service?.Price.ToString("F")) zł*@
 
 
                     @if (item.Service != null)
@@ -48,7 +68,8 @@ else
                         @Html.AntiForgeryToken()
                         @Html.Hidden("itemId", item.ServiceId)
                         @Html.Hidden("itemName", item.ServiceDescription)
-                        <button  style="margin: 0 auto" type="submit" class="btn btn-danger">x</button>
+                        @Html.Hidden("customInstrumentId", item.CustomInstrumentId)
+                        <button style="margin: 0 auto" type="submit" class="btn btn-danger">x</button>
                     }
                 </td>
             </tr>
@@ -71,11 +92,16 @@ else
 
 <style>
 
+    p, td {
+        margin: 0;
+        padding: 0;
+    }
+
     .center {
         display: flex;
         justify-content: center;
     }
-        /*
+    /*
     .right {
         display: flex;
         justify-content: flex-end;

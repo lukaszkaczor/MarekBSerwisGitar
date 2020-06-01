@@ -182,6 +182,7 @@
     <Compile Include="Controllers\ImagesController.cs" />
     <Compile Include="Controllers\InstrumentsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PartTypesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\ServiceTypesController.cs" />
@@ -269,6 +270,22 @@
     <Compile Include="Migrations\202005191737238_AddCustomInstrumentPartsTable.designer.cs">
       <DependentUpon>202005191737238_AddCustomInstrumentPartsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005201720008_AddOrdersAndOrderDetailsTables.cs" />
+    <Compile Include="Migrations\202005201720008_AddOrdersAndOrderDetailsTables.designer.cs">
+      <DependentUpon>202005201720008_AddOrdersAndOrderDetailsTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005201736411_AddCustomInstrumentIdToShoppingCartsTable.cs" />
+    <Compile Include="Migrations\202005201736411_AddCustomInstrumentIdToShoppingCartsTable.designer.cs">
+      <DependentUpon>202005201736411_AddCustomInstrumentIdToShoppingCartsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005291823446_FixedNameOfPriceInOrderDetailsTable.cs" />
+    <Compile Include="Migrations\202005291823446_FixedNameOfPriceInOrderDetailsTable.designer.cs">
+      <DependentUpon>202005291823446_FixedNameOfPriceInOrderDetailsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005291834435_AddContactEmailTableToOrdersController.cs" />
+    <Compile Include="Migrations\202005291834435_AddContactEmailTableToOrdersController.designer.cs">
+      <DependentUpon>202005291834435_AddContactEmailTableToOrdersController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -286,6 +303,9 @@
     <Compile Include="Models\DbModels\Instrument.cs" />
     <Compile Include="Models\DbModels\InstrumentServices.cs" />
     <Compile Include="Models\DbModels\MainGallery.cs" />
+    <Compile Include="Models\DbModels\Order.cs" />
+    <Compile Include="Models\DbModels\OrderDetails.cs" />
+    <Compile Include="Models\DbModels\OrderDetailsOrder.cs" />
     <Compile Include="Models\DbModels\PartType.cs" />
     <Compile Include="Models\DbModels\Service.cs" />
     <Compile Include="Models\DbModels\ServiceType.cs" />
@@ -933,6 +953,9 @@
     <Content Include="Views\GuitarParts\Details.cshtml" />
     <Content Include="Views\GuitarParts\Edit.cshtml" />
     <Content Include="Views\GuitarParts\Index.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Orders\MyOrders.cshtml" />
+    <Content Include="Views\Orders\OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1008,6 +1031,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005191737238_AddCustomInstrumentPartsTable.resx">
       <DependentUpon>202005191737238_AddCustomInstrumentPartsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005201720008_AddOrdersAndOrderDetailsTables.resx">
+      <DependentUpon>202005201720008_AddOrdersAndOrderDetailsTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005201736411_AddCustomInstrumentIdToShoppingCartsTable.resx">
+      <DependentUpon>202005201736411_AddCustomInstrumentIdToShoppingCartsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005291823446_FixedNameOfPriceInOrderDetailsTable.resx">
+      <DependentUpon>202005291823446_FixedNameOfPriceInOrderDetailsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005291834435_AddContactEmailTableToOrdersController.resx">
+      <DependentUpon>202005291834435_AddContactEmailTableToOrdersController.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -10,9 +10,13 @@ namespace SerwisGitar.Models.DbModels
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         
-        [Required]
-        public int InstrumentId { get; set; }
+        //[Required]
+        public int? InstrumentId { get; set; }
         public Instrument Instrument { get; set; }
+
+
+        public int? CustomInstrumentId { get; set; }
+        public CustomInstrument CustomInstrument { get; set; }
 
         //[Required]
         public int? ServiceId { get; set; }

@@ -14,10 +14,14 @@
 
     <div class="container body-content" style="margin-top: 50px">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - WOBSerwis</p>
-        </footer>
+
+        @if (ViewBag.DisableFooter != true)
+        {
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - WOBSerwis</p>
+            </footer>
+        }
     </div>
 
 

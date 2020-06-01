@@ -35,17 +35,10 @@
         @Html.ValidationMessageFor(d => d.ContentEditor.Page)
     </div>
 
-    @*<div class="form-group" style="margin-left: 20px">
-        @Html.CheckBoxFor(d => d.ContentEditor.IsDraftVersion)
-        @Html.LabelFor(d => d.ContentEditor.IsDraftVersion, "Wersja robocza")
-    </div>*@
-
-    @*<hr />*@
 
     @Html.TextAreaFor(d => d.ContentEditor.Content)
 
     <input type="submit" value="Zapisz" style="margin-top: 20px" class="btn btn-success" />
-    @*<input type="submit" value="Podgląd" style="margin-top: 20px" class="btn btn-info" />*@
 
     <script>
         CKEDITOR.replace('ContentEditor.Content');

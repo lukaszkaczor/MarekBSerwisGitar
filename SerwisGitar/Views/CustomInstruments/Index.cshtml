@@ -108,10 +108,17 @@
         </div>
     </div>
 
-    <h5 style="color: crimson; font-style: italic; margin: 20px 0 0 0; display: none" id="info" class="hidden">Uzupełnij wszystkie pola</h5>
-    <button class="btn btn-success" id="btn-submit" style="margin-top: 20px;">Wyślij</button>
+    if (User.Identity.IsAuthenticated)
+    {
+        <h5 style="color: crimson; font-style: italic; margin: 20px 0 0 0; display: none" id="info" class="hidden">Uzupełnij wszystkie pola</h5>
+        <button class="btn btn-success" id="btn-submit" style="margin-top: 20px;">Dodaj do koszyka</button>
+    }
+    else
+    {
+        @Html.ActionLink("Zaloguj  się aby przejść dalej", "Login", "Account",
+            new { returnUrl = Url.Action("Index") }, new { @class = "btn btn-info", style = "margin-top: 20px;" })
+    }
 }
-@*</form>*@
 
 
 

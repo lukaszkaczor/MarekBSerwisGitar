@@ -41,6 +41,8 @@ namespace SerwisGitar.Controllers
                 return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveContent(ContentEditorViewModel model)
         {
             var contentEditor = model.ContentEditor;

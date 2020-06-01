@@ -21,6 +21,9 @@ namespace SerwisGitar.Models
         public DbSet<GuitarPart> GuitarParts { get; set; }
         public DbSet<CustomInstrument> CustomInstruments { get; set; }
         public DbSet<CustomInstrumentParts> CustomInstrumentParts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<OrderDetailsOrder> OrderDetailsOrders { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -37,6 +40,9 @@ namespace SerwisGitar.Models
 
             modelBuilder.Entity<CustomInstrumentParts>()
                 .HasKey(c => new { c.CustomInstrumentId, c.GuitarPartId});
+
+            modelBuilder.Entity<OrderDetailsOrder>()
+                .HasKey(c => new { c.OrderDetailsId, c.OrderId});
 
             base.OnModelCreating(modelBuilder);
         }

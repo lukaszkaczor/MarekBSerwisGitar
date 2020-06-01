@@ -16,6 +16,7 @@ namespace SerwisGitar.Controllers
     {
         private ApplicationDbContext _context = new ApplicationDbContext();
         // GET
+
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
@@ -23,11 +24,11 @@ namespace SerwisGitar.Controllers
             var carts = _context.ShoppingCarts
                 .Include(d => d.Instrument)
                 .Include(d => d.Service.ServiceType)
+                .Include(d=>d.CustomInstrument.CustomInstrumentParts)
+                .Include(d=>d.CustomInstrument.Instrument)
                 .Where(d => d.ApplicationUserId == userId).ToList();
 
             var model = new List<ShoppingCart>();
-
-
 
             return View(carts);
         }
@@ -68,20 +69,24 @@ namespace SerwisGitar.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult DeleteFromCart(int? itemId, string itemName)
+        public ActionResult DeleteFromCart(int? itemId, string itemName, int? customInstrumentId)
         {
             var userId = User.Identity.GetUserId();
-            ShoppingCart productToDelete;
+            ShoppingCart productToDelete = null;
 
-            if (itemId is null)
+            if (itemId!=null)
+            {
+                productToDelete = _context.ShoppingCarts.Where(d => d.ApplicationUserId == userId)
+                    .FirstOrDefault(d => d.ServiceId == itemId);
+            }else if (!String.IsNullOrWhiteSpace(itemName))
             {
                 productToDelete = _context.ShoppingCarts.Where(d => d.ApplicationUserId == userId)
                     .FirstOrDefault(d => d.ServiceDescription == itemName);
             }
-            else
+            else if (customInstrumentId != null)
             {
                 productToDelete = _context.ShoppingCarts.Where(d => d.ApplicationUserId == userId)
-                    .FirstOrDefault(d => d.ServiceId == itemId);
+                    .FirstOrDefault(d => d.CustomInstrumentId == customInstrumentId);
             }
 
             if (productToDelete != null)

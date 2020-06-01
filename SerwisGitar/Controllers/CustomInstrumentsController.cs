@@ -31,7 +31,7 @@ namespace SerwisGitar.Controllers
 
             var model = new CustomInstrumentViewModel()
             {
-                PartTypes = _context.PartTypes.Include(d=>d.GuitarParts).ToList(),
+                PartTypes = _context.PartTypes.Include(d => d.GuitarParts).ToList(),
                 Instruments = _context.Instruments.ToList()
             };
 
@@ -40,10 +40,11 @@ namespace SerwisGitar.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        //[ValidateAntiForgeryToken]
         public ActionResult Save(CustomInstrumentViewModel model)
         {
             var userId = User.Identity.GetUserId();
-            var guitarParts = _context.GuitarParts.ToList();
 
             var partsList = new List<CustomInstrumentParts>();
 
@@ -59,16 +60,21 @@ namespace SerwisGitar.Controllers
             {
                 partsList.Add(new CustomInstrumentParts()
                 {
-                    CustomInstrumentId = model.Instrument.InstrumentId,
+                    CustomInstrumentId = customInstrument.CustomInstrumentId,
                     GuitarPartId = type.GuitarPartId
                 });
             }
-
-            _context.CustomInstruments.AddOrUpdate(customInstrument);
+            _context.CustomInstruments.Add(customInstrument);
             _context.CustomInstrumentParts.AddRange(partsList);
             _context.SaveChanges();
+            _context.ShoppingCarts.Add(new ShoppingCart()
+            {
+                ApplicationUserId = User.Identity.GetUserId(),
+                CustomInstrumentId = customInstrument.CustomInstrumentId
+            });
+            _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "ShoppingCart");
         }
     }
 }

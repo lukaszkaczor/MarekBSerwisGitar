@@ -54,8 +54,9 @@ namespace SerwisGitar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Save(CreateInstrumentViewModel model)
         {
-            var instrumentServices = _context.InstrumentServices.Where(d=>d.InstrumentId == model.Instrument.InstrumentId).ToList();
-            var services = _context.Services.Include(d => d.ServiceType).ToList();
+            var instrumentServices = _context.InstrumentServices
+                .Where(d=>d.InstrumentId == model.Instrument.InstrumentId).ToList();
+            //var services = _context.Services.Include(d => d.ServiceType).ToList();
 
             if (model.Instrument.InstrumentId == 0)
             {
@@ -81,7 +82,8 @@ namespace SerwisGitar.Controllers
                 }
                 else if (!service.IsChecked && instrumentServices.Any(d => d.ServiceId == service.ServiceId))
                 {
-                    _context.InstrumentServices.Remove(instrumentServices.First(d => d.ServiceId == service.ServiceId && d.InstrumentId == model.Instrument.InstrumentId));
+                    _context.InstrumentServices.Remove(instrumentServices
+                        .First(d => d.ServiceId == service.ServiceId && d.InstrumentId == model.Instrument.InstrumentId));
                 }
                 else if (service.IsChecked && instrumentServices.Any(d => d.ServiceId == service.ServiceId))
                 {

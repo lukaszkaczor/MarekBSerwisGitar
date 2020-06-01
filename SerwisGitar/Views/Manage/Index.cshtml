@@ -1,87 +1,45 @@
 ﻿@model SerwisGitar.Models.IndexViewModel
 @{
     ViewBag.Title = "Zarządzaj";
+    ViewBag.MarginTop = 0;
 }
 
 <h2>@ViewBag.Title.</h2>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Zmień ustawienia konta</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Hasło:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Zmień hasło", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Utwórz", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>Logowania zewnętrzne:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Zarządzaj", "ManageLogins") ]
-        </dd>
-        @*
-            Numery telefonów mogą być używane jako drugi składnik w systemach uwierzytelniania dwuskładnikowego.
-             
-             Zobacz <a href="https://go.microsoft.com/fwlink/?LinkId=403804">ten artykuł</a>,
-                        aby uzyskać szczegółowe informacje na temat konfigurowania tej aplikacji ASP.NET pod kątem obsługi uwierzytelniania dwuskładnikowego przy użyciu wiadomości SMS.
-             
-             Usuń komentarz z następującego bloku po skonfigurowaniu uwierzytelniania dwuskładnikowego
-        *@
-        @*  
-            <dt>Numer telefonu:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Usuń" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Uwierzytelnianie dwuetapowe:</dt>
-        <dd>
-            <p>
-                Nie skonfigurowano żadnych dostawców uwierzytelniania dwuskładnikowego. Zobacz <a href="https://go.microsoft.com/fwlink/?LinkId=403804">ten artykuł</a>,
-                aby uzyskać szczegółowe informacje na temat konfigurowania tej aplikacji ASP.NET pod kątem obsługi uwierzytelniania dwuskładnikowego.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Włączone
-                        <input type="submit" value="Wyłącz" class="btn btn-link" />
-                        </text>
-                    }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Wyłączone
-                        <input type="submit" value="Włącz" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
+<div class="row">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="true">Zmiana hasła</a>
+            <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">Moje zamówienia</a>
+            @*<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Baza danych</a>*@
+            @*<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>*@
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                @Html.Action("ChangePassword")
+            </div>
+            <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                @Html.Action("MyOrders", "Orders")
+            </div>
+            @*<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            </div>*@
+        </div>
+    </div>
 </div>
+
+<style>
+    @@media screen and (max-width: 768px) {
+
+        .row {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-link {
+            width: 80vw;
+        }
+    }
+
+</style>

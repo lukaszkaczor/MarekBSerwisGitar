@@ -7,10 +7,8 @@ var totalPrice = 0;
 var f2 = false;
 
 $(document).ready(function () {
-    //$("#Instrument_InstrumentId").change(function () {
     $('input[type=radio][name=productId]').change(function () {
 
-        //$.get("/Home/GetList", { instrumentId: $("#Instrument_InstrumentId").val() }, function (data) {
         $.get("/Home/GetList", { instrumentId: $(this).val() }, function (data) {
             $("#form").empty();
             dataArray = data;
@@ -60,8 +58,8 @@ $(document).ready(function () {
             totalPrice = 0;
             for (var i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].checked) {
-                    var chuj = parseFloat(prices[i].textContent);
-                    totalPrice = totalPrice + chuj;
+                    let price  = parseFloat(prices[i].textContent);
+                    totalPrice = totalPrice + price ;
                 }
             }
             $('.totalPrice').text(totalPrice);

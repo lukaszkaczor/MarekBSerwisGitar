@@ -1,0 +1,50 @@
+﻿@model SerwisGitar.Models.DbModels.Order
+@{
+    ViewBag.Title = "Tworzenie zamówienia";
+}
+
+
+
+@*<h2>Tworzenie zamówienia</h2>*@
+
+@using (Html.BeginForm("CreateOrder", "Orders", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div style="display: flex; flex-direction: column; width: 100%"> 
+        <h2>Wpisz dane do zamówienia</h2>
+        <h5>Dzięki danym podanym niżej skontaktuje się z Tobą przedstawiciel firmy w celu uzgodnienia szczegółów.</h5>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber,"Numer telefonu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.ContactEmail,"Email do kontaktu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ContactEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ContactEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Message,"Uwagi dla sprzedającego", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <textarea class="form-control" name="Message" id="Message" rows="3"></textarea>
+
+                @*@Html.TextAreaFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.Message, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Złóż rezerwację" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
