@@ -62,7 +62,7 @@ namespace SerwisGitar.Controllers
                     ServiceId = cart.ServiceId,
                     InstrumentId = cart.InstrumentId,
                     Price = cart.Service?.Price,
-                    Description = cart.ServiceDescription
+                    //Description = cart.ServiceDescription
                 });
             }
 

@@ -26,7 +26,7 @@ namespace SerwisGitar.Models.DbModels
         public int? CustomInstrumentId { get; set; }
         public CustomInstrument CustomInstrument { get; set; }
 
-        public string Description { get; set; }
+        //public string Description { get; set; }
 
         public bool IsCompleted { get; set; }
 

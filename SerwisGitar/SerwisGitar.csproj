@@ -291,10 +291,6 @@
     <Compile Include="Migrations\202006162031338_AddInsturmentColumnToOrderDetailsTable.designer.cs">
       <DependentUpon>202006162031338_AddInsturmentColumnToOrderDetailsTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006162039168_AddDescriptionColumnToOrderDetailsColumn.cs" />
-    <Compile Include="Migrations\202006162039168_AddDescriptionColumnToOrderDetailsColumn.designer.cs">
-      <DependentUpon>202006162039168_AddDescriptionColumnToOrderDetailsColumn.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -1061,9 +1057,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006162031338_AddInsturmentColumnToOrderDetailsTable.resx">
       <DependentUpon>202006162031338_AddInsturmentColumnToOrderDetailsTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006162039168_AddDescriptionColumnToOrderDetailsColumn.resx">
-      <DependentUpon>202006162039168_AddDescriptionColumnToOrderDetailsColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
