@@ -1,0 +1,23 @@
+﻿@model SerwisGitar.Models.DbModels.CustomInstrument
+
+@{
+    ViewBag.Title = "Szczegóły";
+}
+
+<h4>Typ: @Model.Instrument.Name</h4>
+
+@foreach (var item in Model.CustomInstrumentParts)
+{
+    <h4>@item.GuitarPart.PartType.Name - @item.GuitarPart.Name</h4>
+}
+<h4>Kolor podstawowy: <span style="background: @Model.PrimaryColor">@Model.PrimaryColor</span> </h4>
+<h4>Kolor dodatkowy: <span style="background: @Model.SecondaryColor">@Model.SecondaryColor</span> </h4>
+
+@if (ViewBag.OrderId == null)
+{
+    @Html.ActionLink("Wróć", "Index", "ShoppingCart", new { id = ViewBag.OrderId }, null)
+}
+else
+{
+    @Html.ActionLink("Wróć", "OrderDetails", "Orders", new { id = ViewBag.OrderId }, null)
+}

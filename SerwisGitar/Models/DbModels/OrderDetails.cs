@@ -20,8 +20,13 @@ namespace SerwisGitar.Models.DbModels
         public int? PartTypeId { get; set; }
         public PartType PartType { get; set; }
 
+        public int? InstrumentId { get; set; }
+        public Instrument Instrument { get; set; }
+
         public int? CustomInstrumentId { get; set; }
         public CustomInstrument CustomInstrument { get; set; }
+
+        public string Description { get; set; }
 
         public bool IsCompleted { get; set; }
 

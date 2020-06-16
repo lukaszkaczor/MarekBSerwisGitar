@@ -1,0 +1,48 @@
+﻿@model List<SerwisGitar.Models.DbModels.Order>
+@{
+    ViewBag.Title = "Historia zamówień";
+}
+
+<p>
+    @Html.ActionLink("Wróć", "Index", "Admin")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Id zamówienia
+        </th>
+        <th>
+            Data zamówienia
+        </th>
+        <th>
+            Status 
+        </th>
+        <th>Szczegóły</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus)
+            </td>
+            <td>
+                @using (Html.BeginForm("AddOrder", "OrdersManagement", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("id", item.OrderId)
+                    <button type="submit" class="btn btn-success">Zarządzaj</button>
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+

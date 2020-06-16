@@ -6,6 +6,8 @@ using Microsoft.AspNet.Identity;
 using SerwisGitar.Models;
 using SerwisGitar.Models.DbModels;
 using System.Data.Entity;
+using System.Net;
+using SerwisGitar.ViewModels.OrdersManagement;
 
 namespace SerwisGitar.Controllers
 {
@@ -35,6 +37,8 @@ namespace SerwisGitar.Controllers
 
             var orderList = new List<OrderDetails>();
 
+            var totalPrice = shoppingCart.Sum(d => d.Service?.Price);
+
             var order = new Order()
             {
                 ApplicationUserId = userId,
@@ -42,7 +46,8 @@ namespace SerwisGitar.Controllers
                 OrderStatus = OrderStatus.Utworzone,
                 OrderDate = DateTime.Now,
                 PhoneNumber = model.PhoneNumber,
-                ContactEmail = model.ContactEmail
+                ContactEmail = model.ContactEmail,
+                Price = totalPrice
             };
 
             _context.Orders.Add(order);
@@ -55,7 +60,9 @@ namespace SerwisGitar.Controllers
                     OrderId = order.OrderId,
                     CustomInstrumentId = cart.CustomInstrumentId,
                     ServiceId = cart.ServiceId,
-                    Price = cart.Service?.Price
+                    InstrumentId = cart.InstrumentId,
+                    Price = cart.Service?.Price,
+                    Description = cart.ServiceDescription
                 });
             }
 
@@ -90,10 +97,31 @@ namespace SerwisGitar.Controllers
 
         public ActionResult OrderDetails(int id)
         {
-            var model = _context.Orders
-                .Include(d=>d.OrderDetailsOrder
-                    .Select(s=>s.OrderDetails.Service))
+            var userId = User.Identity.GetUserId();
+
+            var order = _context.Orders
+                .Include(d => d.ApplicationUser)
                 .FirstOrDefault(d => d.OrderId == id);
+
+            if (userId != order.ApplicationUserId)
+            {
+                if (!User.IsInRole("Admin"))
+                {
+                    return HttpNotFound();
+                }
+            }
+
+            var orderDetails = _context.OrderDetails
+                .Include(d=>d.Instrument)
+                .Include(d=>d.Order)
+                .Include(d=>d.CustomInstrument.Instrument)
+                .Include(d=>d.Service.ServiceType).Where(d => d.OrderId == id).ToList();
+
+            var model = new ManageOrderViewModel()
+            {
+                Order = order,
+                OrderDetails = orderDetails
+            };
             return View(model);
         }
     }

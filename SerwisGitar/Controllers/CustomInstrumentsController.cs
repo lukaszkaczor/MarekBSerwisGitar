@@ -20,15 +20,6 @@ namespace SerwisGitar.Controllers
             var partTypes = _context.PartTypes.ToList();
             var partsList = new List<TypeWithItsParts>();
 
-            //foreach (var partType in partTypes)
-            //{
-            //    partsList.Add(new TypeWithItsParts()
-            //    {
-            //        Type = 
-            //        Parts = partType.GuitarParts
-            //    });
-            //}
-
             var model = new CustomInstrumentViewModel()
             {
                 PartTypes = _context.PartTypes.Include(d => d.GuitarParts).ToList(),
@@ -75,6 +66,18 @@ namespace SerwisGitar.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "ShoppingCart");
+        }
+
+        public ActionResult Details(int id, int? orderId)
+        {
+            var model = _context.CustomInstruments
+                .Include(d=>d.CustomInstrumentParts.Select(cd=>cd.GuitarPart.PartType))
+                .Include(d=>d.Instrument)
+                .FirstOrDefault(d => d.CustomInstrumentId == id);
+
+            ViewBag.OrderId = orderId;
+
+            return View(model);
         }
     }
 }

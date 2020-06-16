@@ -34,13 +34,13 @@ else
                 <td style="width: 75%">
                     @if (item.CustomInstrumentId != null)
                     {
-                        <a href="#" style="text-decoration: none">@(item.CustomInstrument.Instrument.Name) - instrument spersonalizowany (kliknij, aby zobaczyć szczegóły)</a>
+                        <a href="@Url.Action("Details", "CustomInstruments", new { id=item.CustomInstrumentId})" style="text-decoration: none">@(item.CustomInstrument.Instrument.Name) - instrument spersonalizowany (kliknij, aby zobaczyć szczegóły)</a>
                     }
                     else
                     {
                         <p>@item.ServiceDescription</p>
 
-                        <p>@(item.Service?.ServiceType?.Name): @(item.Service?.Name) - @(item.Instrument.Name)</p>
+                        <p>@(item.Service?.ServiceType?.Name): @(item.Service?.Name) - @(item.Instrument?.Name)</p>
 
                     }
                 </td>

@@ -1,1 +1,33 @@
-﻿@model SerwisGitar.Models.DbModels.Order
+﻿@model SerwisGitar.ViewModels.OrdersManagement.ManageOrderViewModel
+
+@{
+    ViewBag.Title = "Zamówienie nr " + Model.Order.OrderId;
+}
+
+<h4>Data zamówienia: @Model.Order.OrderDate.ToShortDateString()</h4>
+<h4>Podany email kontaktowy: @Model.Order.ContactEmail</h4>
+<h4>Podany telefon kontaktowy: @Model.Order.PhoneNumber</h4>
+<h4>Wiadomość dla sprzedającego: @Model.Order.Message</h4>
+<h4>Status zamówienia: @Model.Order.OrderStatus</h4>
+<hr />
+
+<h4>Zamówione przedmioty i usługi:</h4>
+<ul>
+    @foreach (var item in Model.OrderDetails)
+    {
+        if (item.CustomInstrumentId != null)
+        {
+            <h4><a href="@Url.Action("Details", "CustomInstruments", new { id=item.CustomInstrumentId, orderId = Model.Order.OrderId})" style="text-decoration: none">@(item.CustomInstrument.Instrument.Name) - instrument spersonalizowany (kliknij aby zobaczyć szczegóły)</a></h4>
+        }
+        else
+        {
+            <h4>@(item.Service?.ServiceType?.Name): @(item.Service?.Name) - @(item.Instrument?.Name) - @item.Price zł</h4>
+        }
+    
+    }
+</ul>
+
+@Html.ActionLink("Wróć", "Index", "Manage")
+
+@*@foreach (var item in Model.OrderDetailsOrder)*@
+

@@ -1,0 +1,134 @@
+﻿@model SerwisGitar.ViewModels.OrdersManagement.ManageOrderViewModel
+
+@{
+    ViewBag.Title = "Obsługa zamówienia nr " + Model.Order.OrderId;
+    var isCompleted = "Nie";
+    var defaultPrice = "Do uzgodnienia";
+}
+
+<h3>Dane do zamówienia nr @Model.Order.OrderId</h3>
+
+
+<table class="table-striped table">
+    <tr>
+        <td class="td">Email do kontaktu: </td>
+        <td>@Model.Order.ContactEmail</td>
+    </tr>
+
+    <tr>
+        <td class="td">Telefon do kontaktu: </td>
+        <td>@Model.Order.PhoneNumber</td>
+    </tr>
+
+    <tr>
+        <td class="td">Data zamówienia</td>
+        <td>@Model.Order.OrderDate.ToString("MM/dd/yyyy")</td>
+    </tr>
+
+    <tr>
+        <td class="td">Przybliżona cena zamówienia:</td>
+        <td>@Model.Order.Price zł</td>
+    </tr>
+
+    <tr>
+        <td class="td">Wiadomość do serwisu:</td>
+        <td>@Model.Order.Message</td>
+    </tr>
+</table>
+<hr />
+@*<div class="border-top my-3"></div>*@
+
+<h4>Zamówione produkty</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Produkt</th>
+            <th>Cena za sztukę</th>
+            <th>Skompletowany</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderDetails)
+        {
+            <tr>
+                <td>
+                    @if (item.CustomInstrument?.Instrument == null)
+                    {
+                    <p>@(item.Service?.ServiceType?.Name): @(item.Service?.Name) - @(item.Instrument?.Name)</p>
+
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Details", "CustomInstruments", new { id=item.CustomInstrumentId, orderId =Model.Order.OrderId})">@(item.CustomInstrument?.Instrument.Name) - Instrument spersonalizowany (kliknij aby zobaczyć szczegóły)</a>
+                    }
+
+                </td>
+                <td>
+                    @if (item.Price == null)
+                    {
+                        <p>@defaultPrice</p>
+                    }
+                    else
+                    {
+                        <p>@item.Price zł</p>
+                    }
+                </td>
+                <td style="display: flex; justify-content: space-around; align-items: center">
+                    @{
+                        isCompleted = item.IsCompleted ? "Tak" : "Nie";
+                    }
+                    @isCompleted
+
+                    @using (Html.BeginForm("ChangeStatus", "OrdersManagement", FormMethod.Post))
+                    {
+                        @Html.Hidden("orderDetailsId", item.OrderDetailsId)
+                        @Html.Hidden("orderId", item.OrderId)
+                        <button class="btn btn-primary" type="submit">Zmień status</button>
+                    }
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td>
+                @using (Html.BeginForm("SetStatusToCompleted", "OrdersManagement", FormMethod.Post))
+                {
+                    if (Model.OrderDetails.All(d => d.IsCompleted != false))
+                    {
+                        @Html.Hidden("orderId", Model.Order.OrderId)
+                        @Html.HiddenFor(d => d.Order.OrderId)
+                        <button type="submit" class="btn btn-primary">Zmień status na wysłany</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary disabled" disabled>Zmień status na wysłany</button>
+                    }
+                }
+
+            </td>
+            <td>
+                @using (Html.BeginForm("SetStatusToCancelled", "OrdersManagement", FormMethod.Post))
+                {
+                    @Html.Hidden("orderId", Model.Order.OrderId)
+                    <button type="submit" class="btn btn-danger">Anuluj zamówienie</button>
+                }
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+@Html.ActionLink("Powrót", "Index")
+
+<style>
+
+    /*.td {
+        width: 50%;
+        font-weight: bold;
+        text-align: right
+    }*/
+</style>
