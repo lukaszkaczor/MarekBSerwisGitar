@@ -1,7 +1,7 @@
 ﻿@model SerwisGitar.ViewModels.Galleries.GalleryViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = Model.Gallery.Name + " - edycja";
 }
 
 
@@ -23,7 +23,7 @@
         <div style="display: flex; flex-direction: row; ">
             @Html.EditorFor(model => model.Gallery.Name, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Gallery.Name, "", new { @class = "text-danger" })
-            <input type="submit" value="Zapisz" class="btn btn-default" style="margin-left: 10px" />
+            <input type="submit" value="Zmień nazwę" class="btn btn-success" style="margin-left: 10px" />
         </div>
     </div>
 }
@@ -54,20 +54,61 @@
             <td style="display: flex">
                 <img src="@Model.Images[i].Url" style="width:150px" />
             </td>
-            @*<td>
-                    @Html.DisplayFor(d => d.Images[i].Url)
-                </td>*@
+
             <td>
-                @Html.AntiForgeryToken()
-                <button class="btnSubstract btn btn-default">-</button>
-                @Html.TextBoxFor(d => Model.ImageGalleries[i].Order, new { style = "padding: 5px; border: 1px solid rgba(0,0,0,0.2); border-radius: 5px;", @class = "imageToSend", @type = "number", min = 1, max = Model.ImageGalleries.Max(d => d.Order) })
-                <button class="btnAdd btn btn-default">+</button>
-                <button class="btn btn-danger btnDelete">X</button>
+            
+                <div style="display: flex; align-items: center">
+                    @using (Html.BeginForm("SetPositionOfImage", "Galleries", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("imageId", @Model.Images[i].ImageId)
+                        @Html.Hidden("galleryId", @Model.Gallery.GalleryId)
+                        @Html.Hidden("order", @Model.Images[i].ImageGalleries.FirstOrDefault()?.Order)
+                        @Html.Hidden("actionType", false)
+
+                        <button style="padding: 10px; margin-right: 10px" type="submit" class="btn">
+                            <svg class="bi bi-dash" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M3.5 8a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5z" />
+                            </svg>
+                        </button>
+                    }
+                    
+                    <label  style="padding: 5px 20px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 10px">@Model.ImageGalleries[i].Order</label>
 
 
-                @Html.Hidden("Order", Model.ImageGalleries[i].Order)
-                @Html.Hidden("GalleryId", Model.ImageGalleries[i].GalleryId)
-                @Html.Hidden("ImageId", Model.ImageGalleries[i].ImageId, new { @class = "imgId" })
+                    @using (Html.BeginForm("SetPositionOfImage", "Galleries", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("imageId", @Model.Images[i].ImageId)
+                        @Html.Hidden("galleryId", @Model.Gallery.GalleryId)
+                        @Html.Hidden("actionType", true)
+                        @*@Html.Hidden("order", @Model.Images[i].ImageGalleries.FirstOrDefault()?.Order)*@
+
+                        <button style="padding: 10px; margin: 0 10px" type="submit" class="btn">
+                            <svg class="bi bi-plus" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z" />
+                                <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z" />
+                            </svg>
+                        </button>
+                    }
+
+
+                    @using (Html.BeginForm("DeleteImageFromGallery", "Galleries", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("imageId", @Model.Images[i].ImageId)
+                        @Html.Hidden("galleryId", @Model.Gallery.GalleryId)
+                        @Html.Hidden("order", @Model.Images[i].ImageGalleries.FirstOrDefault()?.Order)
+
+                        <button style="padding: 10px; margin-right: 10px" type="submit" class="btn">
+                            <svg class="bi bi-x" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z" />
+                                <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z" />
+                            </svg>
+                        </button>
+                    }
+
+                </div>
             </td>
         </tr>
     }
@@ -75,42 +116,10 @@
 </table>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Wróć", "Index" , null ,new { @class="btn btn-primary"})
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="../../Content/galleries.js"></script>
 }
-
-@*<h2>Edit</h2>
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>Gallery</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.GalleryId)
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-    }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>*@

@@ -3,8 +3,10 @@
     ViewBag.Title = "Aktywne zamówienia";
 }
 
+    <h4>Przyjęte zamówienia</h4>
+
 <p>
-    @Html.ActionLink("Wróć", "Index", "Admin")
+    @Html.ActionLink("Wróć", "Index", "Admin", null , new { @class="btn btn-primary"})
 </p>
 <table class="table">
     <tr>

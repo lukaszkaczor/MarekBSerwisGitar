@@ -316,6 +316,7 @@
     <Compile Include="Models\DbModels\ServiceType.cs" />
     <Compile Include="Models\DbModels\ShoppingCart.cs" />
     <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\GalleryManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -955,7 +956,6 @@
     <Content Include="Views\PartTypes\Index.cshtml" />
     <Content Include="Views\GuitarParts\Create.cshtml" />
     <Content Include="Views\GuitarParts\Delete.cshtml" />
-    <Content Include="Views\GuitarParts\Details.cshtml" />
     <Content Include="Views\GuitarParts\Edit.cshtml" />
     <Content Include="Views\GuitarParts\Index.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />

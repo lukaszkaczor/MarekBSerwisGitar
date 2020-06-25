@@ -22,21 +22,6 @@ namespace SerwisGitar.Controllers
             return View(guitarParts.ToList());
         }
 
-        // GET: GuitarParts/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            GuitarPart guitarPart = db.GuitarParts.Find(id);
-            if (guitarPart == null)
-            {
-                return HttpNotFound();
-            }
-            return View(guitarPart);
-        }
-
         // GET: GuitarParts/Create
         public ActionResult Create()
         {
@@ -44,9 +29,6 @@ namespace SerwisGitar.Controllers
             return View();
         }
 
-        // POST: GuitarParts/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "GuitarPartId,Name,ImageUrl,PartTypeId")] GuitarPart guitarPart)
@@ -78,9 +60,7 @@ namespace SerwisGitar.Controllers
             return View(guitarPart);
         }
 
-        // POST: GuitarParts/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "GuitarPartId,Name,ImageUrl,PartTypeId")] GuitarPart guitarPart)
@@ -102,7 +82,7 @@ namespace SerwisGitar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GuitarPart guitarPart = db.GuitarParts.Find(id);
+            GuitarPart guitarPart = db.GuitarParts.Include(d=>d.PartType).FirstOrDefault(d => d.GuitarPartId == id);
             if (guitarPart == null)
             {
                 return HttpNotFound();

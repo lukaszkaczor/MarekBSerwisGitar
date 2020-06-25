@@ -14,11 +14,12 @@ namespace SerwisGitar.Controllers
 {
     public class GalleriesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext _context = new ApplicationDbContext();
+
 
         public ActionResult Index()
         {
-            return View(db.Galleries.ToList());
+            return View(_context.Galleries.ToList());
         }
 
         public ActionResult Details(int? id)
@@ -27,7 +28,7 @@ namespace SerwisGitar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Gallery gallery = db.Galleries.Find(id);
+            Gallery gallery = _context.Galleries.Find(id);
             if (gallery == null)
             {
                 return HttpNotFound();
@@ -46,8 +47,8 @@ namespace SerwisGitar.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Galleries.Add(gallery);
-                db.SaveChanges();
+                _context.Galleries.Add(gallery);
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -60,18 +61,18 @@ namespace SerwisGitar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Gallery gallery = db.Galleries.Find(id);
+            Gallery gallery = _context.Galleries.Find(id);
 
 
             var images =
-                from image in db.Images
-                join imgGallery in db.ImageGalleries on image.ImageId equals imgGallery.ImageId
-                join galleries in db.Galleries on imgGallery.GalleryId equals galleries.GalleryId
+                from image in _context.Images
+                join imgGallery in _context.ImageGalleries on image.ImageId equals imgGallery.ImageId
+                join galleries in _context.Galleries on imgGallery.GalleryId equals galleries.GalleryId
                 where imgGallery.GalleryId == id
                 orderby imgGallery.Order
                 select image;
 
-            var imgGalleries = db.ImageGalleries.Where(d => d.GalleryId == id).OrderBy(d => d.Order).ToList();
+            var imgGalleries = _context.ImageGalleries.Where(d => d.GalleryId == id).OrderBy(d => d.Order).ToList();
 
             var model = new GalleryViewModel()
             {
@@ -87,15 +88,15 @@ namespace SerwisGitar.Controllers
             return View(model);
         }
 
-       
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "GalleryId,Name")] Gallery gallery)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(gallery).State = EntityState.Modified;
-                db.SaveChanges();
+                _context.Entry(gallery).State = EntityState.Modified;
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(gallery);
@@ -107,7 +108,7 @@ namespace SerwisGitar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Gallery gallery = db.Galleries.Find(id);
+            Gallery gallery = _context.Galleries.Find(id);
             if (gallery == null)
             {
                 return HttpNotFound();
@@ -119,19 +120,19 @@ namespace SerwisGitar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Gallery gallery = db.Galleries.Find(id);
-            db.Galleries.Remove(gallery);
-            db.SaveChanges();
+            Gallery gallery = _context.Galleries.Find(id);
+            _context.Galleries.Remove(gallery);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
         public ActionResult AddImage(int id)
         {
-            var editedGallery = db.Galleries.Find(id);
+            var editedGallery = _context.Galleries.Find(id);
 
             if (editedGallery == null) return HttpNotFound();
 
-            var orderValue = db.ImageGalleries.Where(d => d.GalleryId == id).Max(d => d.Order) + 1 ?? 1;
+            var orderValue = _context.ImageGalleries.Where(d => d.GalleryId == id).Max(d => d.Order) + 1 ?? 1;
 
             var model = new AddImageViewModel()
             {
@@ -152,16 +153,16 @@ namespace SerwisGitar.Controllers
             var image = model.Image;
 
 
-            var imageFromDb = db.Images.FirstOrDefault(d => d.Url == model.Image.Url);
+            var imageFromDb = _context.Images.FirstOrDefault(d => d.Url == model.Image.Url);
 
             if (imageFromDb == null)
             {
-                db.Images.Add(image);
-                db.SaveChanges();
+                _context.Images.Add(image);
+                _context.SaveChanges();
                 imageFromDb = image;
             }
 
-            var imgGalleryAlreadyExists = db.ImageGalleries
+            var imgGalleryAlreadyExists = _context.ImageGalleries
                 .Where(d => d.GalleryId == model.Gallery.GalleryId).Any(d => d.ImageId == imageFromDb.ImageId);
 
             if (!imgGalleryAlreadyExists)
@@ -172,10 +173,10 @@ namespace SerwisGitar.Controllers
                     ImageId = imageFromDb.ImageId,
                     Order = model.ImageGallery.Order
                 };
-                db.ImageGalleries.Add(imgGallery);
-                db.SaveChanges();
+                _context.ImageGalleries.Add(imgGallery);
+                _context.SaveChanges();
 
-                //_galleryManager = new GalleryManager(db);
+                //_galleryManager = new GalleryManager(_context);
 
                 //_galleryManager.SetOrderOfImageGalleries(imgGallery);
             }
@@ -188,9 +189,39 @@ namespace SerwisGitar.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _context.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteImageFromGallery(int galleryId, int imageId)
+        {
+            GalleryManager galleryManager = new GalleryManager(_context);
+
+            var imageToDelete = _context.ImageGalleries.Where(d => d.GalleryId == galleryId).FirstOrDefault(d => d.ImageId == imageId);
+            _context.ImageGalleries.Remove(imageToDelete);
+            _context.SaveChanges();
+
+            galleryManager.OrderAndSave(_context.ImageGalleries.Where(d => d.GalleryId == galleryId).ToList());
+
+            return RedirectToAction("Edit", new { id = galleryId });
+        }
+
+        public ActionResult SetPositionOfImage(int galleryId, int imageId, bool actionType)
+        {
+            GalleryManager galleryManager = new GalleryManager(_context);
+            var action = actionType ? 1 : -1;
+            var imageGallery = _context.ImageGalleries.Where(d => d.GalleryId == galleryId)
+                .FirstOrDefault(d => d.ImageId == imageId);
+
+            if (imageGallery == null) return HttpNotFound();
+
+            imageGallery.Order = imageGallery.Order += action;
+            galleryManager.SetOrderOfImageGalleries(imageGallery);
+
+            return RedirectToAction("Edit", new { id = galleryId });
         }
     }
 }

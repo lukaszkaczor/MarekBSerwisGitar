@@ -4,12 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista części</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Dodaj nową", "Create", null, new { @class="btn btn-success"})
 </p>
 <table class="table">
+    <thead class="thead-light">
     <tr>
         <th>
             Typ 
@@ -22,7 +23,7 @@
         </th>
         <th></th>
     </tr>
-
+    </thead>
 @foreach (var item in Model) {
     <tr>
         <td>
@@ -35,9 +36,8 @@
             <img src="@item.ImageUrl" width="100px"/>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.GuitarPartId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.GuitarPartId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.GuitarPartId })
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.GuitarPartId }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.GuitarPartId })
         </td>
     </tr>
 }

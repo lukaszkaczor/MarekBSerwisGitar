@@ -28,7 +28,7 @@
     <div class="form-group">
         @Html.LabelFor(d => d.Gallery.ServiceGalleryId, "Serwis")
         <div style="display: flex">
-            @Html.DropDownListFor(d => d.Gallery.ServiceGalleryId, new SelectList(Model.Galleries, "GalleryId", "Name"), "--", new { @class = "form-control" })
+            @Html.DropDownListFor(d => d.Gallery.ServiceGalleryId, new SelectList(Model.Galleries, "GalleryId", "Name"), "", new { @class = "form-control" })
         </div>
         @Html.ValidationMessageFor(d => d.Gallery.ServiceGalleryId)
     </div>
@@ -41,5 +41,7 @@
         @Html.ValidationMessageFor(d => d.Gallery.OurInstrumentsId)
     </div>
 
-    <button class="btn btn-success">Zapisz</button>
+    <button class="btn btn-success" >Zapisz</button>
+    @*<br/>*@
+    @Html.ActionLink("Wróć", "Index", null ,new { @class="btn btn-primary"})
 }
