@@ -4,11 +4,12 @@
     ViewBag.Title = "Zamówienie nr " + Model.Order.OrderId;
 }
 
-<h4>Data zamówienia: @Model.Order.OrderDate.ToShortDateString()</h4>
-<h4>Podany email kontaktowy: @Model.Order.ContactEmail</h4>
-<h4>Podany telefon kontaktowy: @Model.Order.PhoneNumber</h4>
-<h4>Wiadomość dla sprzedającego: @Model.Order.Message</h4>
-<h4>Status zamówienia: @Model.Order.OrderStatus</h4>
+<h4>Dane do zamówienia:</h4>
+<p>Data zamówienia: @Model.Order.OrderDate.ToShortDateString()</p>
+<p>Podany email kontaktowy: @Model.Order.ContactEmail</p>
+<p>Podany telefon kontaktowy: @Model.Order.PhoneNumber</p>
+<p>Wiadomość dla sprzedającego: @Model.Order.Message</p>
+<p>Status zamówienia: @Model.Order.OrderStatus</p>
 <hr />
 
 <h4>Zamówione przedmioty i usługi:</h4>
@@ -17,17 +18,18 @@
     {
         if (item.CustomInstrumentId != null)
         {
-            <h4><a href="@Url.Action("Details", "CustomInstruments", new { id=item.CustomInstrumentId, orderId = Model.Order.OrderId})" style="text-decoration: none">@(item.CustomInstrument.Instrument.Name) - instrument spersonalizowany (kliknij aby zobaczyć szczegóły)</a></h4>
+            <p><a href="@Url.Action("Details", "CustomInstruments", new { id=item.CustomInstrumentId, orderId = Model.Order.OrderId})" style="text-decoration: none">@(item.CustomInstrument.Instrument.Name) - instrument spersonalizowany (kliknij aby zobaczyć szczegóły)</a></p>
         }
         else
         {
-            <h4>@(item.Service?.ServiceType?.Name): @(item.Service?.Name) - @(item.Instrument?.Name) - @item.Price zł</h4>
+            <p>@(item.Service?.ServiceType?.Name): @(item.Service?.Name) - @(item.Instrument?.Name) - @item.Price zł</p>
         }
-    
+
     }
 </ul>
+<hr/>
 
-@Html.ActionLink("Wróć", "Index", "Manage")
+@Html.ActionLink("Wróć", "Index", "Manage", null, new { @class="btn btn-primary"})
 
 @*@foreach (var item in Model.OrderDetailsOrder)*@
 

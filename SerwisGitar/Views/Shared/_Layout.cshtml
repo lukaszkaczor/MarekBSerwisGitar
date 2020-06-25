@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -12,18 +13,18 @@
 <body>
     @Html.Partial("_Navbar")
 
-    <div class="container body-content" style="margin-top: 50px">
+    <div class="container body-content" style="margin-top: 70px; min-height: 75vh">
         @RenderBody()
 
-        @if (ViewBag.DisableFooter != true)
-        {
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - WOBSerwis</p>
-            </footer>
-        }
-    </div>
 
+    </div>
+@if (ViewBag.DisableFooter != true)
+{
+    <hr />
+    <footer class="container">
+        <p>&copy; @DateTime.Now.Year - WOBSerwis</p>
+    </footer>
+}
 
 
     @Scripts.Render("~/bundles/jquery")

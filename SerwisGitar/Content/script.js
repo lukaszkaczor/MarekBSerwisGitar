@@ -25,7 +25,7 @@ $(document).ready(function () {
 
                 $("#form").append('<div class="form-check" style="margin-left: 2rem">' +
                     '<input class="form-check-input" data-val="true" id="Services_' + i + '__IsChecked" name="Services[' + i + '].IsChecked" type="checkbox" value="true" />' +
-                    '<input name="Services[' + i + '].IsChecked" type="hidden" value="false" />)' +
+                    '<input name="Services[' + i + '].IsChecked" type="hidden" value="false" />' +
                     '<input data-val="true" data-val-required="Pole ServiceId jest wymagane." id="Services_' + i + '__ServiceId" name="Services[' + i + '].ServiceId" type="hidden" value="' + dataArray[i].ServiceId + '" />' +
                     '<label class="form-check-label" for="Services_'+i+'__IsChecked">' + dataArray[i].ServiceName + ' (<span class="price">' + dataArray[i].ServicePrice + '</span>zł)' + '</label>' +
                     '</div>');

@@ -38,10 +38,11 @@
 
     @Html.TextAreaFor(d => d.ContentEditor.Content)
 
-    <input type="submit" value="Zapisz" style="margin-top: 20px" class="btn btn-success" />
+    <input type="submit" value="Zapisz" style="margin: 20px 0" class="btn btn-success" />
 
     <script>
         CKEDITOR.replace('ContentEditor.Content');
     </script>
 }
+@Html.ActionLink("Wróć", "Index")
 

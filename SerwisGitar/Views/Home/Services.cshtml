@@ -3,6 +3,7 @@
 
 @{
     ViewBag.Title = "Złóż zamówienie";
+    ViewBag.Active = "Services";
 }
 
 <h2>Zamawianie usługi</h2>
@@ -12,7 +13,7 @@
 
 
 
-<h4>1. Wybierz rodzaj instrumentu</h4>
+<h4 style="margin-bottom: 20px">1. Wybierz rodzaj instrumentu</h4>
 
 @*<div class="contentGrid">*@
 <div class="grid-body form-check">
@@ -69,10 +70,10 @@
 
         function LabelManager(arrayOfLabels, clickedElement) {
             for (var i = 0; i < arrayOfLabels.length; i++) {
-                $(arrayOfLabels[i]).removeClass("bagno");
+                $(arrayOfLabels[i]).removeClass("shadow__");
             }
 
-            $(clickedElement).addClass("bagno");
+            $(clickedElement).addClass("shadow__");
         }
     </script>
 }
@@ -119,7 +120,7 @@
     }
 
 
-    .bagno {
+    .shadow__ {
         -webkit-box-shadow: 0px 0px 31px -9px rgba(0,0,0,1);
         -moz-box-shadow: 0px 0px 31px -9px rgba(0,0,0,1);
         box-shadow: 0px 0px 31px -9px rgba(0,0,0,1);

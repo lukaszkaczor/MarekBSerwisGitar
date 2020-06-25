@@ -23,7 +23,7 @@ namespace SerwisGitar
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap-sketchy.css",
+                      "~/Content/bootstrap-lux.css",
                       "~/Content/site.css"));
         }
     }

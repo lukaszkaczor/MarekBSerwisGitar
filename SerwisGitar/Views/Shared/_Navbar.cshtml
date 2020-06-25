@@ -1,4 +1,15 @@
-﻿<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
+﻿@{
+    var activeTab = ViewBag.Active;
+
+    switch (activeTab)
+    {
+        case "Services":
+
+            break;
+    }
+}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
     <div class="container">
         <a class="navbar-brand" href="@Url.Action("Index", "Home")">WOBSerwis</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,21 +18,20 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item  @((activeTab=="About")? "active" : "" )">
                     <a class="nav-link" href="@Url.Action("About", "Home")">O nas <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item  @((activeTab=="Services")? "active" : "" )">
                     <a class="nav-link" href="@Url.Action("Services", "Home")">Usługi</a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item  @((activeTab=="CustomInstruments")? "active" : "" )">
                     <a class="nav-link" href="@Url.Action("Index", "CustomInstruments")">Gitary spersonalizowane</a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item  @((activeTab=="Gallery")? "active" : "" )">
                     <a class="nav-link" href="@Url.Action("Gallery", "Home")">Galeria</a>
                 </li>
-
             </ul>
 
 

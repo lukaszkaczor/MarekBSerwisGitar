@@ -14,79 +14,89 @@
 }
 else
 {
-    <h2>Koszyk</h2>
+    <h3 style="margin-bottom: 1em">Koszyk</h3>
 
     <table class="table table-striped">
-        <tr>
-            <th style="width: 50%">
-                Nazwa
-            </th>
-            <th>
-                Cena
-            </th>
-            <th class="center">Usuń</th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+        <thead class="thead-dark">
             <tr>
-
-                <td style="width: 75%">
-                    @if (item.CustomInstrumentId != null)
-                    {
-                        <a href="@Url.Action("Details", "CustomInstruments", new { id=item.CustomInstrumentId})" style="text-decoration: none">@(item.CustomInstrument.Instrument.Name) - instrument spersonalizowany (kliknij, aby zobaczyć szczegóły)</a>
-                    }
-                    else
-                    {
-                        <p>@item.ServiceDescription</p>
-
-                        <p>@(item.Service?.ServiceType?.Name): @(item.Service?.Name) - @(item.Instrument?.Name)</p>
-
-                    }
-                </td>
-                <td>
-                    @if (item.CustomInstrumentId != null)
-                    {
-                        <p>Do uzgodnienia</p>
-                    }
-                    else
-                    {
-                        <p>~@(item.Service?.Price.ToString("F")) zł</p>
-                    }
-                    @*~@(item.Service?.Price.ToString("F")) zł*@
-
-
-                    @if (item.Service != null)
-                    {
-                        total += item.Service.Price;
-                    }
-
-                </td>
-                <td>
-                    @using (Html.BeginForm("DeleteFromCart", "ShoppingCart", FormMethod.Post, new { @class = "center" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.Hidden("itemId", item.ServiceId)
-                        @Html.Hidden("itemName", item.ServiceDescription)
-                        @Html.Hidden("customInstrumentId", item.CustomInstrumentId)
-                        <button style="margin: 0 auto" type="submit" class="btn btn-danger">x</button>
-                    }
-                </td>
+                <th style="width: 50%">
+                    Nazwa
+                </th>
+                <th>
+                    Cena
+                </th>
+                <th class="center">Usuń</th>
             </tr>
-        }
+        </thead>
+        
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td style="width: 65%">
+                        @if (item.CustomInstrumentId != null)
+                        {
+                            <a href="@Url.Action("Details", "CustomInstruments", new { id=item.CustomInstrumentId})" style="text-decoration: none">@(item.CustomInstrument.Instrument.Name) - instrument spersonalizowany (kliknij, aby zobaczyć szczegóły)</a>
+                        }
+                        else
+                        {
+                            <p>@item.ServiceDescription</p>
+
+                            <p>@(item.Instrument?.Name): @(item.Service?.ServiceType?.Name) - @(item.Service?.Name) </p>
+
+                        }
+                    </td>
+                    <td>
+                        @if (item.CustomInstrumentId != null)
+                        {
+                            <p>Do uzgodnienia</p>
+                        }
+                        else
+                        {
+                            <p>~@(item.Service?.Price.ToString("F")) zł</p>
+                        }
+                        @*~@(item.Service?.Price.ToString("F")) zł*@
 
 
-        <tr>
-            <td></td>
-            <td></td>
-            <td class="center"><strong>Razem:&nbsp</strong>~@total.ToString("F") zł</td>
-        </tr>
+                        @if (item.Service != null)
+                        {
+                            total += item.Service.Price;
+                        }
 
-        <tr>
-            <td></td>
-            <td></td>
-            <td><a href="@Url.Action("Index", "Orders")" class="btn btn-primary">Zarezerwuj termin</a></td>
-        </tr>
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("DeleteFromCart", "ShoppingCart", FormMethod.Post, new { @class = "center" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("itemId", item.ServiceId)
+                            @Html.Hidden("itemName", item.ServiceDescription)
+                            @Html.Hidden("customInstrumentId", item.CustomInstrumentId)
+                            <button style="padding: 0; margin-right: 0" type="submit" class="btn">
+                                <svg class="bi bi-x" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z" />
+                                    <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z" />
+                                </svg>
+
+                            </button>
+                        }
+                    </td>
+                </tr>
+            }
+
+
+            <tr>
+                <td></td>
+                <td class="center"><strong>Razem:&nbsp</strong>~@total.ToString("F") zł</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td  style="padding: 20px 0; float: right"><a href="@Url.Action("Index", "Orders")" class="btn btn-primary">Zarezerwuj termin</a></td>
+            </tr>
+        </tbody>
     </table>
 }
 
