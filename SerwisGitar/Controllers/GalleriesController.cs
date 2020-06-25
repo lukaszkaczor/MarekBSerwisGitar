@@ -22,19 +22,6 @@ namespace SerwisGitar.Controllers
             return View(_context.Galleries.ToList());
         }
 
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Gallery gallery = _context.Galleries.Find(id);
-            if (gallery == null)
-            {
-                return HttpNotFound();
-            }
-            return View(gallery);
-        }
 
         public ActionResult Create()
         {
@@ -157,6 +144,9 @@ namespace SerwisGitar.Controllers
 
             if (imageFromDb == null)
             {
+                if (String.IsNullOrEmpty(image.Name))
+                    image.Name = model.ImageGallery.Order.ToString();
+
                 _context.Images.Add(image);
                 _context.SaveChanges();
                 imageFromDb = image;

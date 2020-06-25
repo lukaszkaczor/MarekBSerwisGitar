@@ -22,10 +22,6 @@ namespace SerwisGitar.Controllers
             return View(model);
         }
 
-        public ActionResult Test()
-        {
-            return View();
-        }
 
         public ActionResult About()
         {
@@ -33,12 +29,6 @@ namespace SerwisGitar.Controllers
             return View(model);
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
 
         public ActionResult Gallery()
         {
@@ -46,6 +36,7 @@ namespace SerwisGitar.Controllers
                 .Include(d=>d.ServiceGallery.ImageGalleries)
                 .Include(d=>d.OurInstruments.ImageGalleries).FirstOrDefault();
 
+            
             return View(mainGallery);
         }
 
@@ -94,16 +85,6 @@ namespace SerwisGitar.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        //[ValidateAntiForgeryToken]
-        [Authorize]
-        public ActionResult Create(HomeServicesViewModel model, int InstrumentId)
-        {
 
-            var ss = model;
-
-
-            return View();
-        }
     }
 }

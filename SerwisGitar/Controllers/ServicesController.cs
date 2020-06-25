@@ -23,21 +23,7 @@ namespace SerwisGitar.Controllers
             return View(services.ToList());
         }
 
-        // GET: Services/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Service service = db.Services.Find(id);
-            if (service == null)
-            {
-                return HttpNotFound();
-            }
-            return View(service);
-        }
-
+   
         // GET: Services/Create
         public ActionResult Create()
         {
@@ -101,7 +87,7 @@ namespace SerwisGitar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Service service = db.Services.Find(id);
+            Service service = db.Services.Include(d=>d.ServiceType).FirstOrDefault(d=>d.ServiceId == id);
             if (service == null)
             {
                 return HttpNotFound();

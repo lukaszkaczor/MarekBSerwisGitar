@@ -21,20 +21,7 @@ namespace SerwisGitar.Controllers
             return View(db.PartTypes.ToList());
         }
 
-        // GET: PartTypes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PartType partType = db.PartTypes.Find(id);
-            if (partType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(partType);
-        }
+
 
         // GET: PartTypes/Create
         public ActionResult Create()
@@ -42,9 +29,7 @@ namespace SerwisGitar.Controllers
             return View();
         }
 
-        // POST: PartTypes/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PartTypeId,Name")] PartType partType)
@@ -74,9 +59,7 @@ namespace SerwisGitar.Controllers
             return View(partType);
         }
 
-        // POST: PartTypes/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+   
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PartTypeId,Name")] PartType partType)

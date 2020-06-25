@@ -16,7 +16,7 @@
 {
     <h2>Serwis</h2>
     <div class="gallery">
-        @foreach (var imageGallery in Model.ServiceGallery.ImageGalleries)
+        @foreach (var imageGallery in Model.ServiceGallery.ImageGalleries.OrderBy(d=>d.Order))
         {
             <img src="@imageGallery.Image.Url" alt="@imageGallery.Image.Name" class="img-thumbnail">
         }
@@ -26,7 +26,7 @@
     {
         <h2 style="margin-top: 50px;">Nasze instrumenty</h2>
         <div class="gallery">
-            @foreach (var imageGallery in Model.OurInstruments.ImageGalleries)
+            @foreach (var imageGallery in Model.OurInstruments.ImageGalleries.OrderBy(d=>d.Order))
             {
                 <img src="@imageGallery.Image.Url" alt="@imageGallery.Image.Name" class="img-thumbnail">
             }

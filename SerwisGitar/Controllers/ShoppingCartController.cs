@@ -21,16 +21,15 @@ namespace SerwisGitar.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var carts = _context.ShoppingCarts
+            var model = _context.ShoppingCarts
                 .Include(d => d.Instrument)
                 .Include(d => d.Service.ServiceType)
                 .Include(d=>d.CustomInstrument.CustomInstrumentParts)
                 .Include(d=>d.CustomInstrument.Instrument)
                 .Where(d => d.ApplicationUserId == userId).ToList();
 
-            var model = new List<ShoppingCart>();
 
-            return View(carts);
+            return View(model);
         }
 
         [HttpPost]

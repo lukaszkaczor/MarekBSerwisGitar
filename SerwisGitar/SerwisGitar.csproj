@@ -750,6 +750,7 @@
     <Content Include="Content\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Content\ckeditor\styles.js" />
     <Content Include="Content\ckeditor\vendor\promise.js" />
+    <Content Include="Content\customInstrument.js" />
     <Content Include="Content\script.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -922,13 +923,11 @@
     <Content Include="Views\Admin\ContentEditor.cshtml" />
     <Content Include="Views\Galleries\Create.cshtml" />
     <Content Include="Views\Galleries\Delete.cshtml" />
-    <Content Include="Views\Galleries\Details.cshtml" />
     <Content Include="Views\Galleries\Edit.cshtml" />
     <Content Include="Views\Galleries\Index.cshtml" />
     <Content Include="Views\Galleries\AddImage.cshtml" />
     <Content Include="Views\Images\Create.cshtml" />
     <Content Include="Views\Images\Delete.cshtml" />
-    <Content Include="Views\Images\Details.cshtml" />
     <Content Include="Views\Images\Edit.cshtml" />
     <Content Include="Views\Images\Index.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
@@ -936,14 +935,12 @@
     <Content Include="Views\CustomInstruments\Index.cshtml" />
     <Content Include="Views\ServiceTypes\Create.cshtml" />
     <Content Include="Views\ServiceTypes\Delete.cshtml" />
-    <Content Include="Views\ServiceTypes\Details.cshtml" />
     <Content Include="Views\ServiceTypes\Edit.cshtml" />
     <Content Include="Views\ServiceTypes\Index.cshtml" />
     <Content Include="Views\Instruments\Delete.cshtml" />
     <Content Include="Views\Instruments\Index.cshtml" />
     <Content Include="Views\Services\Create.cshtml" />
     <Content Include="Views\Services\Delete.cshtml" />
-    <Content Include="Views\Services\Details.cshtml" />
     <Content Include="Views\Services\Edit.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
     <Content Include="Views\Instruments\Save.cshtml" />
@@ -951,7 +948,6 @@
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\PartTypes\Create.cshtml" />
     <Content Include="Views\PartTypes\Delete.cshtml" />
-    <Content Include="Views\PartTypes\Details.cshtml" />
     <Content Include="Views\PartTypes\Edit.cshtml" />
     <Content Include="Views\PartTypes\Index.cshtml" />
     <Content Include="Views\GuitarParts\Create.cshtml" />

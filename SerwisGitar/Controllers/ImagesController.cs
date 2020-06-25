@@ -21,20 +21,7 @@ namespace SerwisGitar.Controllers
             return View(db.Images.ToList());
         }
 
-        // GET: Images/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Image image = db.Images.Find(id);
-            if (image == null)
-            {
-                return HttpNotFound();
-            }
-            return View(image);
-        }
+
 
         // GET: Images/Create
         public ActionResult Create()
@@ -42,9 +29,6 @@ namespace SerwisGitar.Controllers
             return View();
         }
 
-        // POST: Images/Create
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ImageId,Name,Url")] Image image)
@@ -74,9 +58,7 @@ namespace SerwisGitar.Controllers
             return View(image);
         }
 
-        // POST: Images/Edit/5
-        // Aby zapewnić ochronę przed atakami polegającymi na przesyłaniu dodatkowych danych, włącz określone właściwości, z którymi chcesz utworzyć powiązania.
-        // Aby uzyskać więcej szczegółów, zobacz https://go.microsoft.com/fwlink/?LinkId=317598.
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ImageId,Name,Url")] Image image)
