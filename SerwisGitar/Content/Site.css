@@ -1,7 +1,6 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -29,20 +28,34 @@ textarea {
 .itemContainter {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-gap: 20px;
 }
 
-.itemContainter img {
-    width: 200px;
-    margin-right: 20px;
+    .itemContainter img {
+        /* width: 200px; */
+        width: 10rem;
+        margin-right: 20px;
+    }
+
+.textHolder p {
+    text-align: justify;
 }
 
-
-.item {
+.item, .textWithImg {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+    .textWithImg img {
+        width: 50%;
+    }
+
+    .textWithImg:nth-child(odd) p {
+        margin: 20px;
+    }
 
 .mapouter {
     display: flex;
@@ -61,4 +74,45 @@ textarea {
 #gmap_canvas {
     width: 100%;
     height: 400px;
+}
+
+@media screen and (max-width: 600px) {
+    .mapouter, .item {
+        flex-direction: column;
+    }
+
+
+
+    .itemContainter img {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 992px) {
+
+    .mapouter {
+        flex-direction: column;
+    }
+
+    .gmap_canvas {
+        width: 100%;
+    }
+
+    .textWithImg {
+        flex-direction: column;
+    }
+
+        .textWithImg img {
+            width: 100%;
+            margin: 0 0 1rem;
+        }
+
+        .textWithImg:nth-child(odd) img {
+            margin-right: 0;
+        }
+
+        .textWithImg:nth-child(even) img {
+            margin-left: 0;
+        }
 }

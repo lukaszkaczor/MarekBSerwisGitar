@@ -42,6 +42,8 @@ $(document).ready(function () {
                 '<label for= "Message">Inne (cena do uzgodnienia)</label>' +
                 '<textarea class="form-control" name="Message" id="Message" rows="3"></textarea></div>');
 
+                $('#form').append('<h4>Cena razem ~ <span class="totalPrice">0</span>zł</h4>')
+
             if ($('#IsAuthenticated').val()) {
                 $("#form").append('<button class="btn btn-success" style="margin: 0 0">Przejdź do koszyka</button>');
             }
